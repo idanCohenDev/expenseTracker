@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
     height: height,
     width: width,
     backgroundColor: Colors.White,
+    paddingBottom: height * 0.1,
   },
 });

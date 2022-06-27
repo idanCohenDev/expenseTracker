@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpenses from "../Screens/AllExpenses";
 import MonthlyExpenses from "../Screens/MonthlyExpenses";
@@ -7,6 +7,7 @@ import Icon from "../Components/UI/Icon";
 import { Colors } from "../styles/Colors";
 import NewExpense from "../Screens/NewExpense";
 const Tab = createBottomTabNavigator();
+const { width, height } = Dimensions.get("window");
 
 export default function TabNavigator() {
   return (
@@ -15,25 +16,12 @@ export default function TabNavigator() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "#fff",
+          height: height * 0.1,
         },
         tabBarActiveTintColor: Colors.Black,
         tabBarInactiveTintColor: Colors.Grey,
       }}
     >
-      <Tab.Screen
-        name="AllExpenses"
-        component={AllExpenses}
-        options={{
-          tabBarLabel: "All Expenses",
-          tabBarIcon: ({ focused }) => (
-            <Icon
-              name="list"
-              size={32}
-              color={focused ? Colors.Black : Colors.Grey}
-            />
-          ),
-        }}
-      />
       <Tab.Screen
         name="NewExpense"
         component={NewExpense}
@@ -47,6 +35,20 @@ export default function TabNavigator() {
               </TouchableOpacity>
             );
           },
+        }}
+      />
+      <Tab.Screen
+        name="AllExpenses"
+        component={AllExpenses}
+        options={{
+          tabBarLabel: "All Expenses",
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name="list"
+              size={32}
+              color={focused ? Colors.Black : Colors.Grey}
+            />
+          ),
         }}
       />
       <Tab.Screen
