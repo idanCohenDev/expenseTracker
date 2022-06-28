@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "../../styles/Colors";
+import Icon from "./Icon";
 
 export default function Expense({ data }) {
   const dynamicColor = {
@@ -15,8 +16,14 @@ export default function Expense({ data }) {
         </Text>
         <Text style={styles.date}>{data.date}</Text>
       </View>
-
-      <Text style={styles.description}>{data.description}</Text>
+      <View style={styles.descriptionContainer}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: data.category.color }]}
+        >
+          <Icon name={data.category.iconName} size={32} color="#fff" />
+        </View>
+        <Text style={styles.description}>{data.description}</Text>
+      </View>
     </View>
   );
 }
@@ -48,9 +55,24 @@ const styles = StyleSheet.create({
   date: {
     color: Colors.Grey,
   },
+  descriptionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexShrink: 1,
+    width: "60%",
+  },
 
   description: {
     fontWeight: "bold",
     color: Colors.Black,
+    textAlign: "center",
+  },
+  iconContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
   },
 });

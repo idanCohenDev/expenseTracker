@@ -1,12 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
-import TabNavigator from "./Navigators/TabNavigator";
 import ExpensesContextProvider from "./Context/Context";
-
+import DrawerNavigator from "./Navigators/DrawerNavigator";
 export default function App() {
   return (
     <ExpensesContextProvider>
       <NavigationContainer>
-        <TabNavigator />
+        <DrawerNavigator />
       </NavigationContainer>
     </ExpensesContextProvider>
   );

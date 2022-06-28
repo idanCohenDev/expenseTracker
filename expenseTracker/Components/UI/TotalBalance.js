@@ -12,7 +12,6 @@ export default function TotalBalance({ data }) {
   }, 0);
 
   const income = data.reduce((sum, expense) => {
-
     if (expense.type !== "EXPENSE") {
       return (sum += expense.amount);
     } else {
@@ -21,7 +20,6 @@ export default function TotalBalance({ data }) {
   }, 0);
 
   const expenses = data.reduce((sum, expense) => {
-
     if (expense.type === "EXPENSE") {
       return (sum += expense.amount);
     } else {
@@ -49,12 +47,16 @@ const styles = StyleSheet.create({
     height: 240,
     borderRadius: 24,
     marginBottom: 24,
-    backgroundColor: Colors.Black,
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: Colors.Grey,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
   },
   title: {
-    color: "#fff",
+    color: Colors.Black,
     fontSize: 24,
   },
   balance: {

@@ -23,6 +23,20 @@ export default function TabNavigator() {
       }}
     >
       <Tab.Screen
+        name="AllExpenses"
+        component={AllExpenses}
+        options={{
+          tabBarLabel: "All Expenses",
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name="list"
+              size={32}
+              color={focused ? Colors.Black : Colors.Grey}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="NewExpense"
         component={NewExpense}
         options={{
@@ -35,20 +49,6 @@ export default function TabNavigator() {
               </TouchableOpacity>
             );
           },
-        }}
-      />
-      <Tab.Screen
-        name="AllExpenses"
-        component={AllExpenses}
-        options={{
-          tabBarLabel: "All Expenses",
-          tabBarIcon: ({ focused }) => (
-            <Icon
-              name="list"
-              size={32}
-              color={focused ? Colors.Black : Colors.Grey}
-            />
-          ),
         }}
       />
       <Tab.Screen

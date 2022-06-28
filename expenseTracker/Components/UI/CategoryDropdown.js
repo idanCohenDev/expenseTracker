@@ -17,10 +17,13 @@ const Categories = [
   { name: "Personal Spending", iconName: "body", color: "#810955" },
   { name: "Recreation & Entertainment", iconName: "film", color: "#2F8F9D" },
 ];
-export default function CategoryDropdown() {
+export default function CategoryDropdown({ categorySelectHandler }) {
   const categoriesElements = Categories.map((category) => {
     return (
-      <Pressable>
+      <Pressable
+        style={({ pressed }) => pressed && styles.pressed}
+        onPress={() => categorySelectHandler(category)}
+      >
         <View style={styles.categoryContainer}>
           <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
             <Icon name={category.iconName} size={32} color="#fff" />
@@ -40,11 +43,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.Grey,
     borderWidth: 1,
     borderRadius: 16,
-    height: 30,
     backgroundColor: "#fff",
-    position: "absolute",
-    height: height * 0.3,
-    transform: [{translateY: "-100%"}]
   },
   categoryContainer: {
     flexDirection: "row",
@@ -61,5 +60,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 16,
+  },
+  pressed: {
+    opacity: 0.8,
   },
 });

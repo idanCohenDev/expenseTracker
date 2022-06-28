@@ -1,12 +1,10 @@
-import { StyleSheet, TextInput, Text, View, Button, Dimensions } from "react-native";
+import { StyleSheet, TextInput, Text, View, Button, Keyboard } from "react-native";
 import React, { useContext, useState } from "react";
 import Container from "../Components/UI/Container";
 import { Colors } from "../styles/Colors";
 import CategoryDropdown from "../Components/UI/CategoryDropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ExpensesContext } from "../Context/Context";
-
-const { width, height } = Dimensions.get("window");
 
 export default function NewExpense({ navigation }) {
   const expensesCtx = useContext(ExpensesContext);
@@ -18,6 +16,7 @@ export default function NewExpense({ navigation }) {
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
+
   return (
     <Container style={{ alignItems: "center" }}>
       <Text style={styles.title}>Add Expenses</Text>
@@ -33,15 +32,24 @@ export default function NewExpense({ navigation }) {
         <Button title="Income" onPress={() => setType("INCOME")} />
         <Button title="Expense" onPress={() => setType("EXPENSE")} />
       </View>
-      <View style={styles.categoryContainer}>
-        {type === "EXPENSE" && (
-          <Button
-            onPress={() => setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen)}
-            title="Category"
-          />
-        )}
-        {categoryOpen && <CategoryDropdown />}
-      </View>
+      {type === "EXPENSE" && (
+        <Button
+          onPress={() => {
+            Keyboard.dismiss();
+            setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen);
+          }}
+          title="Category"
+        />
+      )}
+      {categoryOpen && (
+        <CategoryDropdown
+          categorySelectHandler={(category) => {
+            setCategoryOpen(false);
+            setCategory({ ...category });
+          }}
+        />
+      )}
+
       <TextInput
         style={styles.noteInput}
         value={note}
@@ -73,7 +81,10 @@ export default function NewExpense({ navigation }) {
             amount: Number(amount),
             date: dateText,
             type: type,
-            category: "Hello ",
+            category: type === "INCOME" && {
+              iconName: "pricetag",
+              color: "#A0D995",
+            },
           });
           setNote("");
           setAmount("");
@@ -82,6 +93,7 @@ export default function NewExpense({ navigation }) {
           setDateModalOpen(false);
           setDateText("");
           setType("");
+          setCategory({});
           navigation.navigate("AllExpenses");
         }}
       />
@@ -109,10 +121,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   categoryContainer: {
-    zIndex: 10,
-    borderColor: "#333", 
-    borderWidth: 2, 
-    width: "100%"
+    borderColor: "#333",
+    borderWidth: 2,
   },
   input: {
     fontSize: 48,
