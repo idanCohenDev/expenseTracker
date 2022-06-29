@@ -1,36 +1,30 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 const DATA = [
   {
-    description: "Went eating with friendsdfasfdsfsdfas",
+    id: 1,
+    description: "Went eating with friendsfdsa fdsf sadfsad sadj gsdgjksa  dsjklfhasd",
     amount: 30,
     date: "14/03/2022",
+    month: "March",
     type: "EXPENSE",
     category: { name: "Housing", iconName: "home", color: "#FFBD37" },
   },
 ];
 export const ExpensesContext = createContext({
   expenses: DATA,
-  addExpense: ({ description, amount, date, type, category }) => {},
-  setExpenses: ({ expenses }) => {},
+  category: "",
+  addExpense: ({ description, amount, date, month, type, category, id }) => {},
   deleteExpense: (id) => {},
-  updateExpense: (id, { amount, date, description, type }) => {},
+  chooseCategory: (category) => {},
 });
 
 const expensesReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       return [{ ...action.payload }, ...state];
-    case "UPDATE":
-      const updateableExpenseIndex = state.findIndex(
-        (expense) => expense.id === action.payload.id
-      );
-      const updateableExpense = state[updateableExpenseIndex];
-      const updatedExpense = { ...updateableExpense, ...action.payload.data };
-      const updatedExpenses = [...state];
-      updatedExpenses[updateableExpenseIndex] = updatedExpense;
-      return updatedExpenses;
     case "DELETE":
+      console.log(action.payload);
       return state.filter((expense) => expense.id !== action.payload);
     default:
       return state;
@@ -39,6 +33,7 @@ const expensesReducer = (state, action) => {
 
 const ExpensesContextProvider = ({ children }) => {
   const [expensesState, dispatch] = useReducer(expensesReducer, DATA);
+  const [category, setCategory] = useState("");
   const addExpense = (expenseData) => {
     dispatch({ type: "ADD", payload: expenseData });
   };
@@ -47,15 +42,15 @@ const ExpensesContextProvider = ({ children }) => {
     dispatch({ type: "DELETE", payload: id });
   };
 
-  const updateExpense = (id, expenseData) => {
-    dispatch({ type: "UPDATE", payload: { id: id, data: expenseData } });
+  const chooseCategory = (category) => {
+    setCategory(category);
   };
-
   const value = {
     expenses: expensesState,
+    category: category,
     addExpense: addExpense,
     deleteExpense: deleteExpense,
-    updateExpense: updateExpense,
+    chooseCategory: chooseCategory,
   };
   return (
     <ExpensesContext.Provider value={value}>{children}</ExpensesContext.Provider>

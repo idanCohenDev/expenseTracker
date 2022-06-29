@@ -1,10 +1,11 @@
 import { StyleSheet, TextInput, Text, View, Button, Keyboard } from "react-native";
 import React, { useContext, useState } from "react";
-import Container from "../Components/UI/Container";
 import { Colors } from "../styles/Colors";
 import CategoryDropdown from "../Components/UI/CategoryDropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ExpensesContext } from "../Context/Context";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 export default function NewExpense({ navigation }) {
   const expensesCtx = useContext(ExpensesContext);
@@ -12,13 +13,13 @@ export default function NewExpense({ navigation }) {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [note, setNote] = useState("");
   const [date, setDate] = useState(new Date());
-  const [dateText, setDateText] = useState("");
+  const [dateText, setDateText] = useState("00/00/0000");
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
 
   return (
-    <Container style={{ alignItems: "center" }}>
+    <>
       <Text style={styles.title}>Add Expenses</Text>
       <View style={styles.inputContainer}>
         <TextInput
@@ -68,23 +69,30 @@ export default function NewExpense({ navigation }) {
               selectedDate.getMonth() + 1
             }/${selectedDate.getFullYear()}`;
             setDateText(formattedDate);
-            setDate(date);
+            setDate(selectedDate);
           }}
         />
       )}
       <Button
         title="Save"
         onPress={() => {
-          console.log(expensesCtx.expenses);
+          const selectedMonth = date.toLocaleString("en", {
+            month: "long",
+          });
           expensesCtx.addExpense({
+            id: uuidv4(),
             description: note,
             amount: Number(amount),
             date: dateText,
+            month: selectedMonth,
             type: type,
-            category: type === "INCOME" && {
-              iconName: "pricetag",
-              color: "#A0D995",
-            },
+            category:
+              type === "INCOME"
+                ? {
+                    iconName: "pricetag",
+                    color: "#A0D995",
+                  }
+                : category,
           });
           setNote("");
           setAmount("");
@@ -94,10 +102,10 @@ export default function NewExpense({ navigation }) {
           setDateText("");
           setType("");
           setCategory({});
-          navigation.navigate("AllExpenses");
+          navigation.goBack();
         }}
       />
-    </Container>
+    </>
   );
 }
 

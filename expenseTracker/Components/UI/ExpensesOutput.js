@@ -1,20 +1,27 @@
-import { useRef } from "react";
-import { FlatList, Animated } from "react-native";
-import Container from "./Container";
+import { FlatList, View, StyleSheet, Dimensions } from "react-native";
 import Expense from "./Expense";
 import TotalBalance from "./TotalBalance";
+import { Colors } from "../../styles/Colors";
+const { width, height } = Dimensions.get("screen");
 
 export default function ExpensesOutput({ data }) {
   return (
-    <Container>
+    <View style={styles.container}>
       <TotalBalance data={data} />
       <FlatList
         data={data}
-        renderItem={({ item}) => {
+        renderItem={({ item }) => {
           return <Expense data={item} />;
         }}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.description}
       />
-    </Container>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.White,
+    height: height ,
+  },
+});

@@ -1,26 +1,14 @@
-import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
 import Icon from "./Icon";
 import { Colors } from "../../styles/Colors";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Categories } from "../../Context/Categories";
 
-const { width, height } = Dimensions.get("screen");
-
-const Categories = [
-  { name: "Housing", iconName: "home", color: "#FFBD37" },
-  { name: "Transportation", iconName: "car", color: "#FF7396" },
-  { name: "Food", iconName: "fast-food", color: "#248CED" },
-  { name: "Utilities", iconName: "cog", color: "#0BBFA3" },
-  { name: "Insurance", iconName: "briefcase", color: "#A64B2A" },
-  { name: "Medical & Healthcare", iconName: "heart", color: "#9F57E3" },
-  { name: "Saving", iconName: "cash", color: "#656565" },
-  { name: "Personal Spending", iconName: "body", color: "#810955" },
-  { name: "Recreation & Entertainment", iconName: "film", color: "#2F8F9D" },
-];
 export default function CategoryDropdown({ categorySelectHandler }) {
   const categoriesElements = Categories.map((category) => {
     return (
       <Pressable
+        key={category.name}
         style={({ pressed }) => pressed && styles.pressed}
         onPress={() => categorySelectHandler(category)}
       >

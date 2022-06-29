@@ -1,8 +1,23 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Dimensions, Text, View } from "react-native";
 import { Colors } from "../../styles/Colors";
 import BalanceInformation from "./BalanceInformation";
+import LinearGradientBackground from "./LinearGradientBackground";
+
+const { width, height } = Dimensions.get("screen");
 
 export default function TotalBalance({ data }) {
+  const [balanceColor, setBalanceColor] = useState("#fff");
+  useEffect(() => {
+    if (balance > 0) {
+      setBalanceColor(Colors.Green);
+    } else if (balance < 0) {
+      setBalanceColor(Colors.Red);
+    } else {
+      setBalanceColor("#fff");
+    }
+  }, [data]);
+
   const balance = data.reduce((sum, expense) => {
     if (expense.type === "EXPENSE") {
       return sum - expense.amount;
@@ -28,46 +43,47 @@ export default function TotalBalance({ data }) {
   }, 0);
 
   const dynamicColor = {
-    color: balance > 0 ? Colors.Green : Colors.Red,
+    color: balanceColor,
   };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Total Balance: </Text>
-      <Text style={[styles.balance, dynamicColor]}>{balance}$</Text>
+    <LinearGradientBackground style={styles.container}>
+      <Text style={styles.title}>Total Balance</Text>
+      <Text style={[styles.balance, dynamicColor]}>
+        {balance < 0 ? "-" : ""}${Math.abs(balance)}
+      </Text>
       <View style={styles.infoContainer}>
         <BalanceInformation type={"income"} data={income} />
         <BalanceInformation type={"expense"} data={expenses} />
       </View>
-    </View>
+    </LinearGradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 240,
+    width: width * 0.9,
+    height: height * 0.3,
     borderRadius: 24,
-    marginBottom: 24,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: Colors.Grey,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.8,
-    shadowRadius: 4,
   },
   title: {
-    color: Colors.Black,
+    color: "#fff",
     fontSize: 24,
+    marginBottom: 8,
+    letterSpacing: 0.8,
   },
   balance: {
     color: "#fff",
-    fontSize: 48,
+    fontSize: 56,
+    fontWeight: "700",
   },
   infoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 24,
-    marginTop: 24,
+    marginTop: 32,
   },
 });

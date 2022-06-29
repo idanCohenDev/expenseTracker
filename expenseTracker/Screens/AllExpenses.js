@@ -1,18 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import ExpensesOutput from "../Components/UI/ExpensesOutput";
 import { ExpensesContext } from "../Context/Context";
 import { useIsFocused } from "@react-navigation/native";
 
-export default function AllExpenses() {
+export default function AllExpenses({ route }) {
   const expensesCtx = useContext(ExpensesContext);
   const [expenses, setExpenses] = useState(expensesCtx.expenses);
   const isFocused = useIsFocused();
   useEffect(() => {
     setExpenses(expensesCtx.expenses);
-  }, [isFocused]);
+  }, [isFocused, expensesCtx.expenses]);
 
-  return <ExpensesOutput data={expenses} />;
+  const filteredExpenses = expenses.filter((expense) => {
+    return expensesCtx.category
+      ? expense.category.name === expensesCtx.category
+      : expense;
+  });
+
+  return <ExpensesOutput data={filteredExpenses} />;
 }
-
-const styles = StyleSheet.create({});

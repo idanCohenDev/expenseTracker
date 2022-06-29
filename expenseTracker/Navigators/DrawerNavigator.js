@@ -1,13 +1,24 @@
-import { Text, View } from 'react-native'
-import React from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import TabNavigator from './TabNavigator'
-const Drawer = createDrawerNavigator()
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import TabNavigator from "./TabNavigator";
+import { Colors } from "../styles/Colors";
+import CustomDrawerContent from "./CustomDrawerContent";
+
+const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={TabNavigator}/>
+    <Drawer.Navigator
+      screenOptions={{
+        headerTitle: "",
+        headerStyle: { backgroundColor: Colors.White, shadowOpacity: 0 },
+        headerTintColor: Colors.Black,
+      }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen
+        name="TabNavigator"
+        component={TabNavigator}
+        options={{ title: "All Expenses" }}
+      />
     </Drawer.Navigator>
-  )
+  );
 }
-

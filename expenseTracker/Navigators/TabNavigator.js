@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpenses from "../Screens/AllExpenses";
@@ -6,19 +5,29 @@ import MonthlyExpenses from "../Screens/MonthlyExpenses";
 import Icon from "../Components/UI/Icon";
 import { Colors } from "../styles/Colors";
 import NewExpense from "../Screens/NewExpense";
+import { useContext, useState } from "react";
+import { ExpensesContext } from "../Context/Context";
+import LinearGradientBackground from "../Components/UI/LinearGradientBackground";
 const Tab = createBottomTabNavigator();
+
 const { width, height } = Dimensions.get("window");
 
 export default function TabNavigator() {
+  const expensesCtx = useContext(ExpensesContext);
+  const currentMonth = new Date().toLocaleString("en", { month: "long" });
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "#fff",
+          position: "absolute",
+          borderTopLeftRadius: 32,
+          borderTopRightRadius: 32,
           height: height * 0.1,
         },
-        tabBarActiveTintColor: Colors.Black,
+        tabBarActiveTintColor: "#000",
         tabBarInactiveTintColor: Colors.Grey,
       }}
     >
@@ -26,13 +35,9 @@ export default function TabNavigator() {
         name="AllExpenses"
         component={AllExpenses}
         options={{
-          tabBarLabel: "All Expenses",
+          tabBarLabel: expensesCtx.category ? expensesCtx.category : "All Expenses",
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="list"
-              size={32}
-              color={focused ? Colors.Black : Colors.Grey}
-            />
+            <Icon name="list" size={32} color={focused ? "#000" : Colors.Grey} />
           ),
         }}
       />
@@ -43,9 +48,9 @@ export default function TabNavigator() {
           tabBarButton: (props) => {
             return (
               <TouchableOpacity {...props}>
-                <View style={styles.addButton}>
-                  <Icon name="add" size={48} color="#fff" />
-                </View>
+                <LinearGradientBackground style={styles.addButton}>
+                  <Icon name="md-add" size={48} color="#fff" />
+                </LinearGradientBackground>
               </TouchableOpacity>
             );
           },
@@ -55,7 +60,7 @@ export default function TabNavigator() {
         name="MonthlyExpenes"
         component={MonthlyExpenses}
         options={{
-          tabBarLabel: "This Month",
+          tabBarLabel: selectedMonth,
           tabBarIcon: ({ focused }) => (
             <Icon
               name="calendar"
@@ -64,6 +69,7 @@ export default function TabNavigator() {
             />
           ),
         }}
+        initialParams={{ setSelectedMonth: (month) => setSelectedMonth(month) }}
       />
     </Tab.Navigator>
   );
@@ -71,7 +77,7 @@ export default function TabNavigator() {
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: Colors.Black,
+
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "50%",
@@ -80,9 +86,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "50%",
     transform: [{ translateX: -36 }],
-    shadowColor: Colors.Grey,
-    shadowOffset: { width: 0, heigth: 4 },
-    shadowOpacity: 0.8,
-    shadowRadius: 4,
   },
 });

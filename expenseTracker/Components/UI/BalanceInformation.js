@@ -24,7 +24,6 @@ export default function BalanceInformation({ type, data }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    alignItems: "center",
   },
   iconContainer: {
     backgroundColor: Colors.Grey,
@@ -36,12 +35,13 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   type: {
-    color: Colors.Grey,
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  amount: {
     color: "#fff",
     fontSize: 16,
+  },
+  amount: {
+    fontWeight: "700",
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
