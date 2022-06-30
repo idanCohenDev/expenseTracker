@@ -4,13 +4,31 @@ import { Colors } from "../../styles/Colors";
 import Icon from "./Icon";
 import Swipeable from "react-native-swipeable";
 import { ExpensesContext } from "../../Context/Context";
+import ShadowContainer from "./ShadowContainer";
 
 const { width, height } = Dimensions.get("screen");
 
 export default function Expense({ data }) {
+  const formattedDate = `${data.date.getDate()}/${
+    data.date.getMonth() + 1
+  }/${data.date.getFullYear()}`;
   const expensesCtx = useContext(ExpensesContext);
   const dynamicColor = {
     color: data.type === "EXPENSE" ? Colors.Red : Colors.Green,
+  };
+
+  const renderDateOutput = () => {
+    const { date } = data;
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return "Yesterday";
+    } else {
+      return formattedDate;
+    }
   };
 
   return (
@@ -25,22 +43,27 @@ export default function Expense({ data }) {
         expensesCtx.deleteExpense(data.id);
       }}
     >
-      <View style={styles.container}>
-        <View style={styles.infoContainer}>
-          <Text style={[styles.amount, dynamicColor]}>
-            {data.type === "EXPENSE" ? "-" : "+"}${data.amount}
-          </Text>
-          <Text style={styles.date}>{data.date}</Text>
-        </View>
-        <View style={styles.descriptionContainer}>
-          <View
-            style={[styles.iconContainer, { backgroundColor: data.category.color }]}
-          >
-            <Icon name={data.category.iconName} size={32} color="#fff" />
+      <ShadowContainer>
+        <View style={styles.container}>
+          <View style={styles.infoContainer}>
+            <Text style={[styles.amount, dynamicColor]}>
+              {data.type === "EXPENSE" ? "-" : "+"}${data.amount}
+            </Text>
+            <Text style={styles.date}>{renderDateOutput()}</Text>
           </View>
-          <Text style={styles.description}>{data.description}</Text>
+          <View style={styles.descriptionContainer}>
+            <View
+              style={[
+                styles.iconContainer,
+                { backgroundColor: data.category.color },
+              ]}
+            >
+              <Icon name={data.category.iconName} size={32} color="#fff" />
+            </View>
+            <Text style={styles.description}>{data.description}</Text>
+          </View>
         </View>
-      </View>
+      </ShadowContainer>
     </Swipeable>
   );
 }
@@ -48,19 +71,15 @@ export default function Expense({ data }) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 24,
-    marginTop: 16,
     marginBottom: 8,
     padding: 16,
     backgroundColor: "#fff",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row-reverse",
-    shadowColor: Colors.Grey,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    marginHorizontal: 4,
-    shadowRadius: 4,
+
     width: width * 0.9,
+    height: 80,
   },
   infoContainer: {
     alignItems: "flex-end",

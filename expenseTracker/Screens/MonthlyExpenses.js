@@ -3,7 +3,6 @@ import ExpensesOutput from "../Components/UI/ExpensesOutput";
 import { useContext } from "react";
 import { ExpensesContext } from "../Context/Context";
 import { useIsFocused } from "@react-navigation/native";
-import MonthSelector from "../Components/UI/MonthSelector";
 
 export default function MonthlyExpenses({ route }) {
   const currentMonth = new Date().toLocaleString("en", { month: "long" });
@@ -23,15 +22,11 @@ export default function MonthlyExpenses({ route }) {
   });
 
   return (
-    <>
-      <MonthSelector
-        setSelectedMonth={(month) => {
-          route.params.setSelectedMonth(month);
-          setSelectedMonth(month);
-        }}
-      />
-      <ExpensesOutput data={filteredExpenses} />
-    </>
+    <ExpensesOutput
+      data={filteredExpenses}
+      type="month"
+      route={route}
+      setSelectedMonth={(month) => setSelectedMonth(month)}
+    />
   );
 }
-

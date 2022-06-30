@@ -15,7 +15,7 @@ export default function BalanceInformation({ type, data }) {
       </View>
       <View>
         <Text style={styles.type}>{type === "income" ? "Income" : "Expenses"}</Text>
-        <Text style={styles.amount}>{data}$</Text>
+        <Text style={styles.amount}>${data}</Text>
       </View>
     </View>
   );
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   iconContainer: {
-    backgroundColor: Colors.Grey,
+    backgroundColor: "rgba(127, 132, 135, 0.4)",
     borderRadius: "50%",
     width: 40,
     height: 40,

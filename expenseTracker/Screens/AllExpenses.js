@@ -17,5 +17,5 @@ export default function AllExpenses({ route }) {
       : expense;
   });
 
-  return <ExpensesOutput data={filteredExpenses} />;
+  return <ExpensesOutput data={filteredExpenses} type="all" />;
 }

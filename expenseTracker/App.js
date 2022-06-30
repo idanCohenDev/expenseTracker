@@ -5,12 +5,12 @@ import DrawerNavigator from "./Navigators/DrawerNavigator";
 export default function App() {
   return (
     <>
-    <StatusBar style="dark"/>
-    <ExpensesContextProvider>
-      <NavigationContainer>
-        <DrawerNavigator />
-      </NavigationContainer>
-    </ExpensesContextProvider>
+      <StatusBar style="dark" />
+      <ExpensesContextProvider>
+        <NavigationContainer>
+          <DrawerNavigator />
+        </NavigationContainer>
+      </ExpensesContextProvider>
     </>
   );
 }

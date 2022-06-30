@@ -3,9 +3,10 @@ import { createContext, useReducer, useState } from "react";
 const DATA = [
   {
     id: 1,
-    description: "Went eating with friendsfdsa fdsf sadfsad sadj gsdgjksa  dsjklfhasd",
+    description:
+      "Went eating with friendsfdsa fdsf sadfsad sadj gsdgjksa  dsjklfhasd",
     amount: 30,
-    date: "14/03/2022",
+    date: new Date(),
     month: "March",
     type: "EXPENSE",
     category: { name: "Housing", iconName: "home", color: "#FFBD37" },

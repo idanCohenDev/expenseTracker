@@ -1,23 +1,11 @@
-import { useEffect, useState } from "react";
 import { StyleSheet, Dimensions, Text, View } from "react-native";
-import { Colors } from "../../styles/Colors";
 import BalanceInformation from "./BalanceInformation";
 import LinearGradientBackground from "./LinearGradientBackground";
+import ShadowContainer from "./ShadowContainer";
 
 const { width, height } = Dimensions.get("screen");
 
 export default function TotalBalance({ data }) {
-  const [balanceColor, setBalanceColor] = useState("#fff");
-  useEffect(() => {
-    if (balance > 0) {
-      setBalanceColor(Colors.Green);
-    } else if (balance < 0) {
-      setBalanceColor(Colors.Red);
-    } else {
-      setBalanceColor("#fff");
-    }
-  }, [data]);
-
   const balance = data.reduce((sum, expense) => {
     if (expense.type === "EXPENSE") {
       return sum - expense.amount;
@@ -42,21 +30,19 @@ export default function TotalBalance({ data }) {
     }
   }, 0);
 
-  const dynamicColor = {
-    color: balanceColor,
-  };
-
   return (
-    <LinearGradientBackground style={styles.container}>
-      <Text style={styles.title}>Total Balance</Text>
-      <Text style={[styles.balance, dynamicColor]}>
-        {balance < 0 ? "-" : ""}${Math.abs(balance)}
-      </Text>
-      <View style={styles.infoContainer}>
-        <BalanceInformation type={"income"} data={income} />
-        <BalanceInformation type={"expense"} data={expenses} />
-      </View>
-    </LinearGradientBackground>
+    <ShadowContainer>
+      <LinearGradientBackground style={styles.container}>
+        <Text style={styles.title}>Total Balance</Text>
+        <Text style={styles.balance}>
+          {balance < 0 ? "-" : ""}${Math.abs(balance)}
+        </Text>
+        <View style={styles.infoContainer}>
+          <BalanceInformation type={"income"} data={income} />
+          <BalanceInformation type={"expense"} data={expenses} />
+        </View>
+      </LinearGradientBackground>
+    </ShadowContainer>
   );
 }
 

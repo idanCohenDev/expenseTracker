@@ -8,6 +8,7 @@ import NewExpense from "../Screens/NewExpense";
 import { useContext, useState } from "react";
 import { ExpensesContext } from "../Context/Context";
 import LinearGradientBackground from "../Components/UI/LinearGradientBackground";
+import ShadowContainer from "../Components/UI/ShadowContainer";
 const Tab = createBottomTabNavigator();
 
 const { width, height } = Dimensions.get("window");
@@ -47,11 +48,13 @@ export default function TabNavigator() {
         options={{
           tabBarButton: (props) => {
             return (
-              <TouchableOpacity {...props}>
-                <LinearGradientBackground style={styles.addButton}>
-                  <Icon name="md-add" size={48} color="#fff" />
-                </LinearGradientBackground>
-              </TouchableOpacity>
+              <ShadowContainer>
+                <TouchableOpacity {...props}>
+                  <LinearGradientBackground style={styles.addButton}>
+                    <Icon name="md-add" size={48} color="#fff" />
+                  </LinearGradientBackground>
+                </TouchableOpacity>
+              </ShadowContainer>
             );
           },
         }}
@@ -77,7 +80,6 @@ export default function TabNavigator() {
 
 const styles = StyleSheet.create({
   addButton: {
-
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "50%",

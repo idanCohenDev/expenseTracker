@@ -5,6 +5,7 @@ import { Categories } from "../Context/Categories";
 import Icon from "../Components/UI/Icon";
 import { ExpensesContext } from "../Context/Context";
 import { Colors } from "../styles/Colors";
+import { LinearTextGradient } from "react-native-text-gradient";
 
 export default function CustomDrawerContent(props) {
   const expenseCtx = useContext(ExpensesContext);
@@ -18,10 +19,13 @@ export default function CustomDrawerContent(props) {
         ]}
         key={index}
         label={category.name}
-        labelStyle={styles.label}
+        labelStyle={[
+          styles.label,
+          selectedCategory === category.name ? styles.focusedLabel : styles.label,
+        ]}
         icon={() => (
           <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
-            <Icon name={category.iconName} size={32} color="#fff" />
+            <Icon name={category.iconName} size={24} color="#fff" />
           </View>
         )}
         onPress={() => {
@@ -35,11 +39,20 @@ export default function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
+        icon={() => (
+          <View style={styles.iconContainer}>
+            <Icon name="alert" size={24} color="#fff" />
+          </View>
+        )}
         style={[
           styles.container,
           selectedCategory === "" ? styles.focused : styles.notFocused,
         ]}
         label={"All Expenses"}
+        labelStyle={[
+          styles.label,
+          selectedCategory === "" ? styles.focusedLabel : styles.label,
+        ]}
         onPress={() => {
           setSelectedCategory("");
           expenseCtx.chooseCategory("");
@@ -54,21 +67,30 @@ export default function CustomDrawerContent(props) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
-    paddingVertical: 8,
+    paddingVertical: 4,
     paddingHorizontal: 8,
   },
+  label: {
+    fontSize: 16,
+    fontWeight: "700",
+    width: "100%",
+  },
+  focusedLabel: {
+    color: "#fff",
+  },
   iconContainer: {
-    width: 50,
-    height: 50,
+    backgroundColor: "#134234",
+    width: 40,
+    height: 40,
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
     marginRight: 16,
   },
   focused: {
-    backgroundColor: "#333",
+    backgroundColor: Colors.Grey,
   },
   notFocused: {
-    backgroundColor: Colors.Grey,
+    backgroundColor: Colors.White,
   },
 });

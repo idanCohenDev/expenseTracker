@@ -10,7 +10,7 @@ export default function DrawerNavigator() {
       screenOptions={{
         headerTitle: "",
         headerStyle: { backgroundColor: Colors.White, shadowOpacity: 0 },
-        headerTintColor: Colors.Black,
+        headerTintColor: "#000",
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
