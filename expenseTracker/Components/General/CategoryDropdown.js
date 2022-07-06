@@ -1,28 +1,34 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
-import Icon from "../General/Icon";
+import Icon from "./Icon";
 import { Colors } from "../../styles/Colors";
-import { Categories } from "../../Context/Categories";
 
-export default function CategoryDropdown({ categorySelectHandler }) {
-  const categoriesElements = Categories.map((category) => {
+export default function CategoryDropdown({
+  categorySelectHandler,
+  data,
+  icon,
+  customStyle,
+}) {
+  const categoriesElements = data.map((category) => {
     return (
-      <Pressable
-        key={category.name}
-        style={({ pressed }) => pressed && styles.pressed}
-        onPress={() => categorySelectHandler(category)}
-      >
+      <Pressable key={category.name} onPress={() => categorySelectHandler(category.name)}>
         <View style={styles.categoryContainer}>
-          <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
-            <Icon name={category.iconName} size={32} color="#fff" />
-          </View>
+          {icon && (
+            <View
+              style={[styles.iconContainer, { backgroundColor: category.color }]}
+            >
+              <Icon name={category.iconName} size={32} color="#fff" />
+            </View>
+          )}
           <Text style={styles.text}>{category.name}</Text>
         </View>
       </Pressable>
     );
   });
   return (
-    <ScrollView style={styles.categoriesContainer}>{categoriesElements}</ScrollView>
+    <ScrollView style={[styles.categoriesContainer, customStyle]}>
+      {categoriesElements}
+    </ScrollView>
   );
 }
 
@@ -30,8 +36,12 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     borderColor: Colors.Grey,
     borderWidth: 1,
-    borderRadius: 16,
     backgroundColor: "#fff",
+    position: "absolute",
+    height: 300,
+    bottom: 0,
+    transform: [{ translateY: 320 }, { translateX: -160 }],
+    left: "50%",
   },
   categoryContainer: {
     flexDirection: "row",

@@ -55,6 +55,7 @@ export default function ExpensesOutput({ data, page, route, setSelectedMonth }) 
         </View>
       </View>
       <FlatList
+        style={{ zIndex: -1 }}
         contentContainerStyle={{ marginLeft: width * 0.05 }}
         data={finalData}
         renderItem={({ item }) => {

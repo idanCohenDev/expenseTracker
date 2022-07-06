@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Pressable } from "react-native";
 import React from "react";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import LinearGradientBackground from "./LinearGradientBackground";
 import ShadowContainer from "./ShadowContainer";
 
@@ -14,7 +13,7 @@ export default function Button({
   linearGradientBackground,
 }) {
   const button = (
-    <Pressable style={({ pressed }) => pressed && styles.pressed} onPress={onPress}>
+    <Pressable onPress={onPress}>
       <Text
         style={[
           styles.text,

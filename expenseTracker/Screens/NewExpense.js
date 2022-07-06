@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useContext, useState, useRef } from "react";
 import { Colors } from "../styles/Colors";
-import CategoryDropdown from "../Components/NewExpense/CategoryDropdown";
+import CategoryDropdown from "../Components/General/CategoryDropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ExpensesContext } from "../Context/Context";
 import "react-native-get-random-values";
@@ -20,6 +20,7 @@ import Button from "../Components/General/Button";
 import LinearGradientBackground from "../Components/General/LinearGradientBackground";
 import ShadowContainer from "../Components/General/ShadowContainer";
 import KeyboardDismissOverlay from "../Components/NewExpense/KeyboardDismissOverlay";
+import { Categories } from "../Context/Categories";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -30,7 +31,7 @@ export default function NewExpense({ navigation }) {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [note, setNote] = useState("");
   const [date, setDate] = useState(new Date());
-  const [type, setType] = useState("");
+  const [type, setType] = useState("EXPENSE");
   const [category, setCategory] = useState("");
   const [showPlaceholder, setShowPlaceholder] = useState(true);
 
@@ -73,26 +74,30 @@ export default function NewExpense({ navigation }) {
               Expense
             </TypeButton>
           </View>
-          {type === "EXPENSE" && (
-            <Button
-              linearGradientBackground={true}
-              containerStyle={{ marginTop: 16 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen);
-              }}
-            >
-              Category
-            </Button>
-          )}
-          {categoryOpen && (
-            <CategoryDropdown
-              categorySelectHandler={(category) => {
-                setCategoryOpen(false);
-                setCategory({ ...category });
-              }}
-            />
-          )}
+          <View style={styles.categorySelectionContainer}>
+            {type === "EXPENSE" && (
+              <Button
+                linearGradientBackground={true}
+                containerStyle={{ marginTop: 16 }}
+                onPress={() => {
+                  Keyboard.dismiss();
+                  setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen);
+                }}
+              >
+                Category
+              </Button>
+            )}
+            {categoryOpen && (
+              <CategoryDropdown
+                data={Categories}
+                icon={true}
+                categorySelectHandler={(category) => {
+                  setCategoryOpen(false);
+                  setCategory({ ...category });
+                }}
+              />
+            )}
+          </View>
 
           <TextInput
             maxLength={40}
@@ -178,6 +183,9 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 24,
+  },
+  categorySelectionContainer: {
+    zIndex: 100,
   },
   inputContainer: {
     backgroundColor: "#fff",
