@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ExpensesOutput from "../Components/UI/ExpensesOutput";
+import ExpensesOutput from "../Components/General/ExpensesOutput";
 import { useContext } from "react";
 import { ExpensesContext } from "../Context/Context";
 import { useIsFocused } from "@react-navigation/native";
@@ -24,7 +24,7 @@ export default function MonthlyExpenses({ route }) {
   return (
     <ExpensesOutput
       data={filteredExpenses}
-      type="month"
+      page="month"
       route={route}
       setSelectedMonth={(month) => setSelectedMonth(month)}
     />

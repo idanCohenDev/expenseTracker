@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import ExpensesOutput from "../Components/UI/ExpensesOutput";
+import ExpensesOutput from "../Components/General/ExpensesOutput";
 import { ExpensesContext } from "../Context/Context";
 import { useIsFocused } from "@react-navigation/native";
 

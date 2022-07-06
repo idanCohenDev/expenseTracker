@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
-import Icon from "./Icon";
+import Icon from "../General/Icon";
 import { Colors } from "../../styles/Colors";
 import { Categories } from "../../Context/Categories";
 

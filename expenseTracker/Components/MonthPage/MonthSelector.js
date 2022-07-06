@@ -2,12 +2,12 @@ import { StyleSheet, Text, ScrollView, View } from "react-native";
 import React, { useState } from "react";
 import { Months } from "../../Context/Categories";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import Icon from "./Icon";
-
+import Icon from "../General/Icon";
+import { Colors } from "../../styles/Colors";
 export default function MonthSelector({ setSelectedMonth }) {
   const [shown, setShown] = useState(false);
   return (
-    <View>
+    <View style={styles.container}>
       <Pressable
         style={styles.selectButton}
         onPress={() => setShown((prevShown) => !prevShown)}
@@ -37,8 +37,13 @@ export default function MonthSelector({ setSelectedMonth }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+  },
   selectButton: {
     flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
   },
   selectButtonText: {
     fontSize: 16,
@@ -47,17 +52,14 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     height: 120,
-    top: 24,
-    position: "absolute",
+    top: 8,
     backgroundColor: "#fff",
     borderRadius: 16,
-    width: "100%",
-  },
-  buttonContainer: {
-    width: "100%",
   },
   monthContainer: {
-    paddingVertical: 8,
+    paddingVertical: 10,
+    borderBottomColor: Colors.White,
+    borderBottomWidth: 2,
   },
   month: {
     textAlign: "center",

@@ -2,10 +2,9 @@ import { StyleSheet, View } from "react-native";
 import React, { useContext, useState } from "react";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Categories } from "../Context/Categories";
-import Icon from "../Components/UI/Icon";
+import Icon from "../Components/General/Icon";
 import { ExpensesContext } from "../Context/Context";
 import { Colors } from "../styles/Colors";
-import { LinearTextGradient } from "react-native-text-gradient";
 
 export default function CustomDrawerContent(props) {
   const expenseCtx = useContext(ExpensesContext);

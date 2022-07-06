@@ -1,14 +1,14 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { StyleSheet, TouchableOpacity, Dimensions, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpenses from "../Screens/AllExpenses";
 import MonthlyExpenses from "../Screens/MonthlyExpenses";
-import Icon from "../Components/UI/Icon";
+import Icon from "../Components/General/Icon";
 import { Colors } from "../styles/Colors";
 import NewExpense from "../Screens/NewExpense";
 import { useContext, useState } from "react";
 import { ExpensesContext } from "../Context/Context";
-import LinearGradientBackground from "../Components/UI/LinearGradientBackground";
-import ShadowContainer from "../Components/UI/ShadowContainer";
+import LinearGradientBackground from "../Components/General/LinearGradientBackground";
+import ShadowContainer from "../Components/General/ShadowContainer";
 const Tab = createBottomTabNavigator();
 
 const { width, height } = Dimensions.get("window");
@@ -48,13 +48,13 @@ export default function TabNavigator() {
         options={{
           tabBarButton: (props) => {
             return (
-              <ShadowContainer>
-                <TouchableOpacity {...props}>
+              <TouchableOpacity {...props}>
+                <ShadowContainer shadowStyle={styles.addButton}>
                   <LinearGradientBackground style={styles.addButton}>
                     <Icon name="md-add" size={48} color="#fff" />
                   </LinearGradientBackground>
-                </TouchableOpacity>
-              </ShadowContainer>
+                </ShadowContainer>
+              </TouchableOpacity>
             );
           },
         }}
@@ -88,5 +88,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "50%",
     transform: [{ translateX: -36 }],
+  },
+  pressed: {
+    opacity: 0.8,
   },
 });

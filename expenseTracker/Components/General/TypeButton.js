@@ -3,19 +3,27 @@ import React from "react";
 import LineafGradientBackground from "./LinearGradientBackground";
 import { Colors } from "../../styles/Colors";
 
-export default function TypeButton({ isPressed, children, setType, type }) {
+export default function TypeButton({
+  isPressed,
+  setType,
+  type,
+  children,
+  containerStyle,
+  textStyle,
+}) {
+  const button = (
+    <Pressable onPress={() => setType(type)}>
+      <Text style={[styles.text, isPressed && styles.textFocused, textStyle]}>
+        {children}
+      </Text>
+    </Pressable>
+  );
   return isPressed ? (
-    <LineafGradientBackground style={styles.container}>
-      <Pressable onPress={() => setType(type)}>
-        <Text style={[styles.text, styles.textFocused]}>{children}</Text>
-      </Pressable>
+    <LineafGradientBackground style={[styles.container, containerStyle]}>
+      {button}
     </LineafGradientBackground>
   ) : (
-    <View style={styles.container}>
-      <Pressable onPress={() => setType(type)}>
-        <Text style={styles.text}>{children}</Text>
-      </Pressable>
-    </View>
+    <View style={[styles.container, containerStyle]}>{button}</View>
   );
 }
 

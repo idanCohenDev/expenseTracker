@@ -25,7 +25,6 @@ const expensesReducer = (state, action) => {
     case "ADD":
       return [{ ...action.payload }, ...state];
     case "DELETE":
-      console.log(action.payload);
       return state.filter((expense) => expense.id !== action.payload);
     default:
       return state;
@@ -35,6 +34,7 @@ const expensesReducer = (state, action) => {
 const ExpensesContextProvider = ({ children }) => {
   const [expensesState, dispatch] = useReducer(expensesReducer, DATA);
   const [category, setCategory] = useState("");
+
   const addExpense = (expenseData) => {
     dispatch({ type: "ADD", payload: expenseData });
   };

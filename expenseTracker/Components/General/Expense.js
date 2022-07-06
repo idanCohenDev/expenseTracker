@@ -26,6 +26,8 @@ export default function Expense({ data }) {
       return "Today";
     } else if (date.toDateString() === yesterday.toDateString()) {
       return "Yesterday";
+    } else if (date.getDate() - date.getDate() < 7) {
+      return date.toLocaleDateString("en", { weekday: "long" });
     } else {
       return formattedDate;
     }
@@ -35,8 +37,8 @@ export default function Expense({ data }) {
     <Swipeable
       rightActionActivationDistance={250}
       rightContent={
-        <View>
-          <Text>X</Text>
+        <View style={styles.deleteContainer}>
+          <Icon name="trash" size={32} color="#fff" />
         </View>
       }
       onRightActionActivate={() => {
@@ -69,6 +71,14 @@ export default function Expense({ data }) {
 }
 
 const styles = StyleSheet.create({
+  deleteContainer: {
+    backgroundColor: Colors.Red,
+    height: 80,
+    paddingHorizontal: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 24,
+  },
   container: {
     borderRadius: 24,
     marginBottom: 8,
