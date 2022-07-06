@@ -4,7 +4,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Categories } from "../Context/Categories";
 import Icon from "../Components/General/Icon";
 import { ExpensesContext } from "../Context/Context";
-import { Colors } from "../styles/Colors";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function CustomDrawerContent(props) {
   const expenseCtx = useContext(ExpensesContext);
@@ -71,11 +71,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "700",
-    width: "100%",
-  },
-  focusedLabel: {
-    color: "#fff",
+    // fontWeight: "700",
+    fontSize: 14,
   },
   iconContainer: {
     backgroundColor: "#134234",
@@ -84,12 +81,11 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 16,
   },
   focused: {
-    backgroundColor: Colors.Grey,
+    backgroundColor: "rgba(2,150,255, 0.3)",
   },
   notFocused: {
-    backgroundColor: Colors.White,
+    backgroundColor: "#fff",
   },
 });

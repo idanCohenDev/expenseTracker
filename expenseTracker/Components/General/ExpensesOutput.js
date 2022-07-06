@@ -69,7 +69,6 @@ export default function ExpensesOutput({ data, page, route, setSelectedMonth }) 
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.White,
     height: height,
     paddingBottom: height * 0.2,
   },

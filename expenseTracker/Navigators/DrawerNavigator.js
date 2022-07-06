@@ -8,6 +8,9 @@ export default function DrawerNavigator() {
   return (
     <Drawer.Navigator
       screenOptions={{
+        drawerStyle: {
+          backgroundColor: Colors.White,
+        },
         headerTitle: "",
         headerStyle: {
           backgroundColor: Colors.White,

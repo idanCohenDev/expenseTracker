@@ -4,10 +4,10 @@ export const Categories = [
   { name: "Food", iconName: "fast-food", color: "#248CED" },
   { name: "Utilities", iconName: "cog", color: "#0BBFA3" },
   { name: "Insurance", iconName: "briefcase", color: "#A64B2A" },
-  { name: "Medical & Healthcare", iconName: "heart", color: "#9F57E3" },
+  { name: "Healthcare", iconName: "heart", color: "#9F57E3" },
   { name: "Saving", iconName: "cash", color: "#656565" },
-  { name: "Personal Spending", iconName: "body", color: "#810955" },
-  { name: "Recreation & Entertainment", iconName: "film", color: "#2F8F9D" },
+  { name: "Personal", iconName: "body", color: "#810955" },
+  { name: "Entertainment", iconName: "film", color: "#2F8F9D" },
 ];
 
 export const Months = [
