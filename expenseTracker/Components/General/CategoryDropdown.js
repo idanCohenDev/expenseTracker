@@ -11,7 +11,10 @@ export default function CategoryDropdown({
 }) {
   const categoriesElements = data.map((category) => {
     return (
-      <Pressable key={category.name} onPress={() => categorySelectHandler(category.name)}>
+      <Pressable
+        key={category.name}
+        onPress={() => categorySelectHandler(icon ? category : category.name)}
+      >
         <View style={styles.categoryContainer}>
           {icon && (
             <View
