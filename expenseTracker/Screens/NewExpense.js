@@ -37,7 +37,7 @@ export default function NewExpense({ navigation }) {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
 
   const storeExpense = async (expense) => {
-    const res = await Client.post("/expenses", expense);
+    const res = await Client.post("/add-expense", expense);
   };
 
   return (

@@ -19,13 +19,23 @@ const expenseSchema = new mongoose.Schema({
 
 const Expense = mongoose.model("Expense", expenseSchema);
 
-app.post("/expenses", (req, res) => {
-  const newExpense = new Expense(req.body);
-  newExpense.save((err, data) => {
+app.get("/expenses", (req, res) => {
+  Expense.find({}, (err, expenses) => {
     if (err) {
-      console.log(err);
+      res.send(err);
     } else {
-      console.log("Expense saved successfully");
+      res.json(expenses);
+    }
+  });
+});
+app.post("/delete-expense", (req, res) => {
+  console.log(req.body);
+  const { id } = req.body;
+  Expense.findByIdAndDelete(id, (err, expense) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(expense);
     }
   });
 });
