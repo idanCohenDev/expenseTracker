@@ -8,7 +8,6 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import Client from "../Context/http";
 import React, { useContext, useState, useRef } from "react";
 import { Colors } from "../styles/Colors";
 import CategoryDropdown from "../Components/General/CategoryDropdown";
@@ -35,10 +34,6 @@ export default function NewExpense({ navigation }) {
   const [type, setType] = useState("EXPENSE");
   const [category, setCategory] = useState("");
   const [showPlaceholder, setShowPlaceholder] = useState(true);
-
-  const storeExpense = async (expense) => {
-    const res = await Client.post("/add-expense", expense);
-  };
 
   return (
     <KeyboardDismissOverlay>
@@ -158,7 +153,6 @@ export default function NewExpense({ navigation }) {
                         }
                       : category,
                 };
-                storeExpense(expense);
                 expensesCtx.addExpense(expense);
                 setNote("");
                 setAmount("");

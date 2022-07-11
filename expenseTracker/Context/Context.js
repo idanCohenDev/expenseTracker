@@ -1,21 +1,9 @@
 import { createContext, useReducer, useState } from "react";
 
-const DATA = [
-  {
-    id: 1,
-    description:
-      "Went eating with friendsfdsa fdsf sadfsad sadj gsdgjksa  dsjklfhasd",
-    amount: 30,
-    date: new Date(),
-    month: "March",
-    type: "EXPENSE",
-    category: { name: "Housing", iconName: "home", color: "#FFBD37" },
-  },
-];
 export const ExpensesContext = createContext({
-  expenses: DATA,
+  expenses: [],
   category: "",
-  addExpense: ({ description, amount, date, month, type, category, id }) => {},
+  addExpense: ({ description, amount, date, type, category, id }) => {},
   deleteExpense: (id) => {},
   chooseCategory: (category) => {},
 });
@@ -32,7 +20,7 @@ const expensesReducer = (state, action) => {
 };
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, DATA);
+  const [expensesState, dispatch] = useReducer(expensesReducer, []);
   const [category, setCategory] = useState("");
 
   const addExpense = (expenseData) => {

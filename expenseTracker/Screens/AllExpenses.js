@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import ExpensesOutput from "../Components/General/ExpensesOutput";
 import { ExpensesContext } from "../Context/Context";
 import { useIsFocused } from "@react-navigation/native";
-import Client from "../Context/http";
 
 export default function AllExpenses({ route }) {
   const expensesCtx = useContext(ExpensesContext);
@@ -18,5 +17,5 @@ export default function AllExpenses({ route }) {
       : expense;
   });
 
-  return <ExpensesOutput data={filteredExpenses} type="all" />;
+  return <ExpensesOutput type="all" data={filteredExpenses} />;
 }

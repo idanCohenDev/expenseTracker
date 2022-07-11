@@ -1,13 +1,12 @@
-import { FlatList, View, StyleSheet, Dimensions, Text } from "react-native";
+import { FlatList, View, StyleSheet, Dimensions } from "react-native";
 import Expense from "./Expense";
 import TotalBalance from "./TotalBalance";
-import { Colors } from "../../styles/Colors";
-import MonthSelector from "../MonthPage/MonthSelector";
+import DateSelector from "../MonthPage/DateSelector";
 import TypeButton from "./TypeButton";
 import { useState } from "react";
 const { width, height } = Dimensions.get("screen");
 
-export default function ExpensesOutput({ data, page, route, setSelectedMonth }) {
+export default function ExpensesOutput({ page, route, setSelectedMonth, data }) {
   const [type, setType] = useState("");
   const finalData = data.filter((item) => (type ? item.type === type : item));
   return (
@@ -16,12 +15,21 @@ export default function ExpensesOutput({ data, page, route, setSelectedMonth }) 
         <TotalBalance data={data} />
         <View style={styles.titleContainer}>
           {page === "month" && (
-            <MonthSelector
-              setSelectedMonth={(month) => {
-                route.params.setSelectedMonth(month);
-                setSelectedMonth(month);
-              }}
-            />
+            <View>
+              <DateSelector
+                setSelectedMonth={(month) => {
+                  route.params.setSelectedMonth(month);
+                  setSelectedMonth(month);
+                }}
+                type="month"
+              />
+              <DateSelector
+                setSelectedYear={(year) => {
+                  setSelectedYear(year);
+                }}
+                type="year"
+              />
+            </View>
           )}
 
           <View style={styles.typeContainer}>

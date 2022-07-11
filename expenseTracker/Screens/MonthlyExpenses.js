@@ -6,7 +6,11 @@ import { useIsFocused } from "@react-navigation/native";
 
 export default function MonthlyExpenses({ route }) {
   const currentMonth = new Date().toLocaleString("en", { month: "long" });
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const currentYear = new Date().toLocaleString("en", { year: "numeric" });
+  const [userSelection, setUserSelection] = useState({
+    month: currentMonth,
+    year: currentYear,
+  });
   const expensesCtx = useContext(ExpensesContext);
   const [expenses, setExpenses] = useState(expensesCtx.expenses);
   const isFocused = useIsFocused();
@@ -15,10 +19,18 @@ export default function MonthlyExpenses({ route }) {
   }, [isFocused, expensesCtx.expenses]);
 
   const filteredExpenses = expenses.filter((expense) => {
-    return expensesCtx.category
-      ? expense.category.name === expensesCtx.category &&
-          expense.month === selectedMonth
-      : expense.month === selectedMonth;
+    if (
+      expense.date.toLocaleString("en", { month: "long" }) === selectedMonth &&
+      expense.date.toLocaleString("en", { year: "numeric" }) === currentYear
+    ) {
+      if (expensesCtx.category) {
+        if (expense.category.name === expensesCtx.category) {
+          return expense;
+        }
+      } else {
+        return expense;
+      }
+    }
   });
 
   return (
@@ -26,7 +38,8 @@ export default function MonthlyExpenses({ route }) {
       data={filteredExpenses}
       page="month"
       route={route}
-      setSelectedMonth={(month) => setSelectedMonth(month)}
+      setSelectedMonth={(month) => setUserSelection({ ...userSelection, month })}
+      setSelectedYear={(year) => setUserSelection({ ...userSelection, year })}
     />
   );
 }

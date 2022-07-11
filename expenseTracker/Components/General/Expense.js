@@ -9,9 +9,11 @@ import ShadowContainer from "./ShadowContainer";
 const { width, height } = Dimensions.get("screen");
 
 export default function Expense({ data }) {
-  const formattedDate = `${data.date.getDate()}/${
-    data.date.getMonth() + 1
-  }/${data.date.getFullYear()}`;
+  const formattedDate = data.date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
   const expensesCtx = useContext(ExpensesContext);
   const dynamicColor = {
     color: data.type === "EXPENSE" ? Colors.Red : Colors.Green,
@@ -26,8 +28,6 @@ export default function Expense({ data }) {
       return "Today";
     } else if (date.toDateString() === yesterday.toDateString()) {
       return "Yesterday";
-    } else if (date.getDate() - date.getDate() < 7) {
-      return date.toLocaleDateString("en", { weekday: "long" });
     } else {
       return formattedDate;
     }

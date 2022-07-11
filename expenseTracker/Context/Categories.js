@@ -25,12 +25,3 @@ export const Months = [
   { name: "December" },
 ];
 
-export const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
