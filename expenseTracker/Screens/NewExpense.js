@@ -62,7 +62,11 @@ export default function NewExpense({ navigation }) {
             <TypeButton
               type="INCOME"
               isPressed={type === "INCOME" ? true : false}
-              setType={(type) => setType(type)}
+              setType={(type) => {
+                Keyboard.dismiss();
+                setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen);
+                setType(type);
+              }}
             >
               Income
             </TypeButton>
@@ -89,6 +93,7 @@ export default function NewExpense({ navigation }) {
             )}
             {categoryOpen && (
               <CategoryDropdown
+                customStyle={styles.categoryDropdown}
                 data={Categories}
                 icon={true}
                 categorySelectHandler={(category) => {
@@ -186,8 +191,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 24,
   },
+  categoryDropdown: {
+    width: width * 0.6,
+    transform: [{translateX: width * 0.15}],
+    
+  },
   categorySelectionContainer: {
-    zIndex: 100,
+    zIndex: 1,
   },
   inputContainer: {
     backgroundColor: "#fff",

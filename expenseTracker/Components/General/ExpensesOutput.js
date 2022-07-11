@@ -21,7 +21,7 @@ export default function ExpensesOutput({
         <TotalBalance data={data} />
         <View style={styles.titleContainer}>
           {page === "month" && (
-            <View>
+            <View style={styles.dateSelectionContainer}>
               <DateSelector
                 setSelectedMonth={(month) => {
                   route.params.setSelectedMonth(month);
@@ -39,7 +39,7 @@ export default function ExpensesOutput({
             </View>
           )}
 
-          <View style={styles.typeContainer}>
+          <View style={[styles.typeContainer, { zIndex: -1 }]}>
             <TypeButton
               containerStyle={styles.typeButtonContainer}
               textStyle={styles.typeButtonText}
@@ -90,9 +90,12 @@ const styles = StyleSheet.create({
   innerContainer: {
     alignItems: "center",
   },
+  dateSelectionContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   titleContainer: {
     width: width * 0.9,
-    alignItems: "center",
     paddingVertical: 16,
   },
   title: {

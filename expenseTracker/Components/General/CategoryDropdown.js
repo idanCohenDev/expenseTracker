@@ -1,7 +1,16 @@
-import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+  Dimensions,
+} from "react-native";
 import React from "react";
 import Icon from "./Icon";
 import { Colors } from "../../styles/Colors";
+
+const { width, height } = Dimensions.get("screen");
 
 export default function CategoryDropdown({
   categorySelectHandler,
@@ -15,15 +24,29 @@ export default function CategoryDropdown({
         key={category.name}
         onPress={() => categorySelectHandler(icon ? category : category.name)}
       >
-        <View style={styles.categoryContainer}>
-          {icon && (
-            <View
-              style={[styles.iconContainer, { backgroundColor: category.color }]}
-            >
-              <Icon name={category.iconName} size={32} color="#fff" />
-            </View>
-          )}
-          <Text style={styles.text}>{category.name}</Text>
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            borderBottomWidth: 1,
+            borderBottomColor: Colors.Grey,
+          }}
+        >
+          <View
+            style={[
+              styles.categoryContainer,
+              icon && { justifyContent: "flex-start" },
+            ]}
+          >
+            {icon && (
+              <View
+                style={[styles.iconContainer, { backgroundColor: category.color }]}
+              >
+                <Icon name={category.iconName} size={32} color="#fff" />
+              </View>
+            )}
+            <Text style={styles.text}>{category.name}</Text>
+          </View>
         </View>
       </Pressable>
     );
@@ -42,17 +65,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     position: "absolute",
     height: 300,
-    bottom: 0,
-    transform: [{ translateY: 320 }, { translateX: -160 }],
-    left: "50%",
+    bottom: -300,
+    width: width * 0.4,
+    borderRadius: 8,
   },
   categoryContainer: {
     flexDirection: "row",
-    borderBottomColor: Colors.Grey,
-    borderBottomWidth: 1,
     padding: 16,
     alignItems: "center",
-    backgroundColor: "#fff",
+    width: "80%",
+    justifyContent: "center",
   },
   iconContainer: {
     width: 50,

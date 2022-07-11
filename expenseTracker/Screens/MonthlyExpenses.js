@@ -18,10 +18,11 @@ export default function MonthlyExpenses({ route }) {
     setExpenses(expensesCtx.expenses);
   }, [isFocused, expensesCtx.expenses]);
 
-  const filteredExpenses = expenses.filter((expense) => {
+  const filteredExpenses = expenses.filter((expense, index, arr) => {
     if (
       expense.date.toLocaleString("en", { month: "long" }) === userSelection.month &&
-      expense.date.toLocaleString("en", { year: "numeric" }) === userSelection.year
+      expense.date.toLocaleString("en", { year: "numeric" }) ===
+        userSelection.year.toString()
     ) {
       if (expensesCtx.category) {
         if (expense.category.name === expensesCtx.category) {
