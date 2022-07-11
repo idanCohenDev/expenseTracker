@@ -25,3 +25,12 @@ export const Months = [
   { name: "December" },
 ];
 
+const getLast20Years = () => {
+  const years = [];
+  for (let i = 0; i < 20; i++) {
+    years.push({ name: new Date().getFullYear() - i });
+  }
+  return years;
+};
+
+export const Years = getLast20Years();

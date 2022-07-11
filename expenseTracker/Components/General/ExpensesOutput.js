@@ -6,7 +6,13 @@ import TypeButton from "./TypeButton";
 import { useState } from "react";
 const { width, height } = Dimensions.get("screen");
 
-export default function ExpensesOutput({ page, route, setSelectedMonth, data }) {
+export default function ExpensesOutput({
+  page,
+  setSelectedYear,
+  setSelectedMonth,
+  data,
+  route,
+}) {
   const [type, setType] = useState("");
   const finalData = data.filter((item) => (type ? item.type === type : item));
   return (
@@ -25,6 +31,7 @@ export default function ExpensesOutput({ page, route, setSelectedMonth, data }) 
               />
               <DateSelector
                 setSelectedYear={(year) => {
+                  route.params.setSelectedYear(year);
                   setSelectedYear(year);
                 }}
                 type="year"

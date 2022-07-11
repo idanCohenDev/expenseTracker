@@ -20,8 +20,8 @@ export default function MonthlyExpenses({ route }) {
 
   const filteredExpenses = expenses.filter((expense) => {
     if (
-      expense.date.toLocaleString("en", { month: "long" }) === selectedMonth &&
-      expense.date.toLocaleString("en", { year: "numeric" }) === currentYear
+      expense.date.toLocaleString("en", { month: "long" }) === userSelection.month &&
+      expense.date.toLocaleString("en", { year: "numeric" }) === userSelection.year
     ) {
       if (expensesCtx.category) {
         if (expense.category.name === expensesCtx.category) {

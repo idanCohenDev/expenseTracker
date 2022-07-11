@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Months } from "../../Context/Categories";
+import { Months, Years } from "../../Context/Categories";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import Icon from "../General/Icon";
 import CategoryDropdown from "../General/CategoryDropdown";
-export default function DateSelector({ setSelectedMonth, setSelectedYear }) {
+export default function DateSelector({ setSelectedMonth, setSelectedYear, type }) {
   const [shown, setShown] = useState(false);
   return (
     <View style={styles.container}>
@@ -12,15 +12,19 @@ export default function DateSelector({ setSelectedMonth, setSelectedYear }) {
         style={styles.selectButton}
         onPress={() => setShown((prevShown) => !prevShown)}
       >
-        <Text style={styles.selectButtonText}>Select Month</Text>
+        <Text style={styles.selectButtonText}>
+          {type === "month" ? "Select Month" : "Select Year"}
+        </Text>
         <Icon name={shown ? "caret-up" : "caret-down"} size={16} color="#000" />
       </Pressable>
       {shown && (
         <CategoryDropdown
           customStyle={styles.dropdown}
-          data={Months}
+          data={type === "month" ? Months : Years}
           icon={false}
-          categorySelectHandler={(month) => setSelectedMonth(month)}
+          categorySelectHandler={(data) =>
+            type === "month" ? setSelectedMonth(data) : setSelectedYear(data)
+          }
         />
       )}
     </View>

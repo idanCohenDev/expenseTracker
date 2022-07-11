@@ -16,7 +16,11 @@ const { width, height } = Dimensions.get("window");
 export default function TabNavigator() {
   const expensesCtx = useContext(ExpensesContext);
   const currentMonth = new Date().toLocaleString("en", { month: "long" });
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const currentYear = new Date().toLocaleString("en", { year: "numeric" });
+  const [userSelection, setUserSelection] = useState({
+    month: currentMonth,
+    year: currentYear,
+  });
   return (
     <Tab.Navigator
       screenOptions={{
@@ -63,7 +67,7 @@ export default function TabNavigator() {
         name="MonthlyExpenes"
         component={MonthlyExpenses}
         options={{
-          tabBarLabel: selectedMonth,
+          tabBarLabel: `${userSelection.month} ${userSelection.year}`,
           tabBarIcon: ({ focused }) => (
             <Icon
               name="calendar"
@@ -72,7 +76,12 @@ export default function TabNavigator() {
             />
           ),
         }}
-        initialParams={{ setSelectedMonth: (month) => setSelectedMonth(month) }}
+        initialParams={{
+          setSelectedMonth: (month) =>
+            setUserSelection({ ...userSelection, month: month }),
+          setSelectedYear: (year) =>
+            setUserSelection({ ...userSelection, year: year }),
+        }}
       />
     </Tab.Navigator>
   );
