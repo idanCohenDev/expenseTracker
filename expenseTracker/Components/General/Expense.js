@@ -5,6 +5,7 @@ import Icon from "./Icon";
 import Swipeable from "react-native-swipeable";
 import { ExpensesContext } from "../../Context/Context";
 import ShadowContainer from "./ShadowContainer";
+import IconLinearGradient from "./IconLinearGradient";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -54,14 +55,11 @@ export default function Expense({ data }) {
             <Text style={styles.date}>{renderDateOutput()}</Text>
           </View>
           <View style={styles.descriptionContainer}>
-            <View
-              style={[
-                styles.iconContainer,
-                { backgroundColor: data.category.color },
-              ]}
-            >
-              <Icon name={data.category.iconName} size={32} color="#fff" />
-            </View>
+            <ShadowContainer>
+              <IconLinearGradient color={data.category.color}>
+                <Icon name={data.category.iconName} size={32} color="#fff" />
+              </IconLinearGradient>
+            </ShadowContainer>
             <Text style={styles.description}>{data.description}</Text>
           </View>
         </View>

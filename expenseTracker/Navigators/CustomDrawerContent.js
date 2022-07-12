@@ -4,7 +4,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Categories } from "../Context/Categories";
 import Icon from "../Components/General/Icon";
 import { ExpensesContext } from "../Context/Context";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import IconLinearGradient from "../Components/General/IconLinearGradient";
 
 export default function CustomDrawerContent(props) {
   const expenseCtx = useContext(ExpensesContext);
@@ -23,9 +23,9 @@ export default function CustomDrawerContent(props) {
           selectedCategory === category.name ? styles.focusedLabel : styles.label,
         ]}
         icon={() => (
-          <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
-            <Icon name={category.iconName} size={24} color="#fff" />
-          </View>
+          <IconLinearGradient color={category.color}>
+            <Icon name={category.iconName} size={32} color="#fff" />
+          </IconLinearGradient>
         )}
         onPress={() => {
           setSelectedCategory(category.name);
@@ -39,9 +39,9 @@ export default function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItem
         icon={() => (
-          <View style={styles.iconContainer}>
-            <Icon name="alert" size={24} color="#fff" />
-          </View>
+          <IconLinearGradient color="#27AEE2">
+            <Icon name="list" size={24} color="#fff" />
+          </IconLinearGradient>
         )}
         style={[
           styles.container,
@@ -72,14 +72,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontSize: 14,
-  },
-  iconContainer: {
-    backgroundColor: "#134234",
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
   },
   focused: {
     backgroundColor: "rgba(2,150,255, 0.3)",

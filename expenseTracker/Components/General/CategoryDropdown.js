@@ -9,6 +9,8 @@ import {
 import React from "react";
 import Icon from "./Icon";
 import { Colors } from "../../styles/Colors";
+import { LinearGradient } from "expo-linear-gradient";
+import IconLinearGradient from "./IconLinearGradient";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -18,11 +20,20 @@ export default function CategoryDropdown({
   icon,
   customStyle,
 }) {
-  const categoriesElements = data.map((category) => {
+  const categoriesElements = data.map((category, i, arr) => {
     return (
       <Pressable
         key={category.name}
-        onPress={() => categorySelectHandler(icon ? category : category.name)}
+        onPress={() => {
+          data.forEach((category) => {
+            category.selected = false;
+          });
+          category.selected = !category.selected;
+          categorySelectHandler(icon ? category : category.name);
+        }}
+        style={{
+          backgroundColor: category.selected ? "rgba(2,150,255, 0.3)" : "#fff",
+        }}
       >
         <View
           style={{
@@ -39,11 +50,9 @@ export default function CategoryDropdown({
             ]}
           >
             {icon && (
-              <View
-                style={[styles.iconContainer, { backgroundColor: category.color }]}
-              >
+              <IconLinearGradient color={category.color}>
                 <Icon name={category.iconName} size={32} color="#fff" />
-              </View>
+              </IconLinearGradient>
             )}
             <Text style={styles.text}>{category.name}</Text>
           </View>
@@ -75,14 +84,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "80%",
     justifyContent: "center",
-  },
-  iconContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 16,
   },
   pressed: {
     opacity: 0.8,

@@ -1,9 +1,14 @@
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import React from "react";
 
-export default function KeyboardDismissOverlay({ children }) {
+export default function KeyboardDismissOverlay({ children, onClick }) {
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        onClick();
+        Keyboard.dismiss();
+      }}
+    >
       {children}
     </TouchableWithoutFeedback>
   );
