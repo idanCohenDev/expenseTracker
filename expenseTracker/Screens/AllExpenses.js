@@ -6,6 +6,14 @@ import { useIsFocused } from "@react-navigation/native";
 export default function AllExpenses({ route }) {
   const expensesCtx = useContext(ExpensesContext);
   const [expenses, setExpenses] = useState(expensesCtx.expenses);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch("http://localhost:4000/expenses");
+      const data = await response.json();
+      setExpenses(data);
+    };
+    getData();
+  }, []);
   const isFocused = useIsFocused();
   useEffect(() => {
     setExpenses(expensesCtx.expenses);
