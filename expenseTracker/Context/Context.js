@@ -1,44 +1,87 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useState } from "react";
 
 export const ExpensesContext = createContext({
-  expenses: [],
   category: "",
-  addExpense: ({ description, amount, date, type, category, id }) => {},
+  getAllExpenses: () => {},
+  addExpense: (expense) => {},
   deleteExpense: (id) => {},
   chooseCategory: (category) => {},
 });
 
-const expensesReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD":
-      return [{ ...action.payload }, ...state];
-    case "DELETE":
-      return state.filter((expense) => expense.id !== action.payload);
-    default:
-      return state;
-  }
-};
-
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, []);
   const [category, setCategory] = useState("");
+  const [expenses, setExpenses] = useState([]);
 
-  const addExpense = (expenseData) => {
-    dispatch({ type: "ADD", payload: expenseData });
+  const getAllExpenses = async () => {
+    try {
+      const response = await fetch("http://192.168.1.144:4000/expenses");
+      const data = await response.json();
+      const parsedData = data.map((expense) => {
+        return {
+          ...expense,
+          date: new Date(expense.date),
+          amount: parseFloat(expense.amount),
+        };
+      });
+      setExpenses(parsedData);
+      return parsedData;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const deleteExpense = (id) => {
-    dispatch({ type: "DELETE", payload: id });
+  const deleteExpense = async (id) => {
+    try {
+      const response = await fetch(`http://192.168.1.144:4000/expenses/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      const parsedData = data.map((expense) => {
+        return {
+          ...expense,
+          date: new Date(expense.date),
+          amount: parseFloat(expense.amount),
+        };
+      });
+      setExpenses(parsedData);
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const addExpense = async (expense) => {
+    try {
+      const response = await fetch("http://192.168.1.144:4000/add-expense", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(expense),
+      });
+      const data = await response.json();
+      const parsedData = data.map((expense) => {
+        return {
+          ...expense,
+          date: new Date(expense.date),
+          amount: parseFloat(expense.amount),
+        };
+      });
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const chooseCategory = (category) => {
     setCategory(category);
   };
+
   const value = {
-    expenses: expensesState,
-    category: category,
-    addExpense: addExpense,
+    getAllExpenses: getAllExpenses,
     deleteExpense: deleteExpense,
+    addExpense: addExpense,
+    category: category,
     chooseCategory: chooseCategory,
   };
   return (

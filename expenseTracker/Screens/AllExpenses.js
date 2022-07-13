@@ -1,23 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ExpensesOutput from "../Components/General/ExpensesOutput";
 import { ExpensesContext } from "../Context/Context";
-import { useIsFocused } from "@react-navigation/native";
-
-export default function AllExpenses({ route }) {
+import { useContext } from "react";
+export default function AllExpenses() {
   const expensesCtx = useContext(ExpensesContext);
-  const [expenses, setExpenses] = useState(expensesCtx.expenses);
+  const [expenses, setExpenses] = useState([]);
   useEffect(() => {
-    const getData = async () => {
-      const response = await fetch("http://localhost:4000/expenses");
-      const data = await response.json();
-      setExpenses(data);
+    const getExpenses = async () => {
+      const allExpenses = await expensesCtx.getAllExpenses();
+      setExpenses(allExpenses);
     };
-    getData();
-  }, []);
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    setExpenses(expensesCtx.expenses);
-  }, [isFocused, expensesCtx.expenses]);
+    getExpenses();
+  }, [expensesCtx]);
 
   const filteredExpenses = expenses.filter((expense) => {
     return expensesCtx.category

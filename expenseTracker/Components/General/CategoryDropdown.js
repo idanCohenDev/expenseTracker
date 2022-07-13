@@ -9,7 +9,6 @@ import {
 import React from "react";
 import Icon from "./Icon";
 import { Colors } from "../../styles/Colors";
-import { LinearGradient } from "expo-linear-gradient";
 import IconLinearGradient from "./IconLinearGradient";
 
 const { width, height } = Dimensions.get("screen");

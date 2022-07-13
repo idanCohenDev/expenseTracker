@@ -1,9 +1,9 @@
-import { StyleSheet, Text, Dimensions } from "react-native";
-import React from "react";
+import { StyleSheet, Text, Dimensions, Pressable, TextInput } from "react-native";
+import React, { useState, useRef } from "react";
 
 const { width, height } = Dimensions.get("screen");
 
-export default function AmountInput({ onChangeAmount, value, closeDropdown }) {
+export default function AmountInput({ onAmountChange, value, closeDropdown }) {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const amountInputRef = useRef(null);
   return (
@@ -18,7 +18,7 @@ export default function AmountInput({ onChangeAmount, value, closeDropdown }) {
         ref={amountInputRef}
         style={styles.input}
         value={value}
-        onChangeText={(text) => onChangeAmount(text)}
+        onChangeText={(text) => onAmountChange(text)}
         keyboardType="decimal-pad"
         maxLength={7}
         onFocus={() => {

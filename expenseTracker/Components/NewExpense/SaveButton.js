@@ -1,8 +1,17 @@
 import Button from "../General/Button";
 import { Alert, StyleSheet } from "react-native";
 import { v4 as uuidv4 } from "uuid";
+import { useContext } from "react";
+import { ExpensesContext } from "../../Context/Context";
 
-export default function SaveButton({ navigation, details }) {
+export default function SaveButton({
+  navigation,
+  details,
+  setDetails,
+  closeDropdown,
+}) {
+  const expensesCtx = useContext(ExpensesContext);
+  const { amount, category, date, note, type } = details;
   return (
     <Button
       linearGradientBackground={false}
@@ -27,13 +36,15 @@ export default function SaveButton({ navigation, details }) {
                 : category,
           };
           expensesCtx.addExpense(expense);
-          setNote("");
-          setAmount("");
-          setCategoryOpen(false);
-          setDate(new Date());
-          setType("EXPENSE");
-          setCategory({});
-
+          closeDropdown();
+          setDetails({
+            amount: "",
+            category: "",
+            date: new Date(),
+            note: "",
+            type: "EXPENSE",
+            category: {},
+          });
           navigation.goBack();
         }
       }}

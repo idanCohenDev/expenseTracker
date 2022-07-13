@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ExpensesOutput from "../Components/General/ExpensesOutput";
 import { useContext } from "react";
 import { ExpensesContext } from "../Context/Context";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function MonthlyExpenses({ route }) {
   const currentMonth = new Date().toLocaleString("en", { month: "long" });
@@ -12,13 +11,16 @@ export default function MonthlyExpenses({ route }) {
     year: currentYear,
   });
   const expensesCtx = useContext(ExpensesContext);
-  const [expenses, setExpenses] = useState(expensesCtx.expenses);
-  const isFocused = useIsFocused();
+  const [expenses, setExpenses] = useState([]);
   useEffect(() => {
-    setExpenses(expensesCtx.expenses);
-  }, [isFocused, expensesCtx.expenses]);
+    const getExpenses = async () => {
+      const allExpenses = await expensesCtx.getAllExpenses();
+      setExpenses(allExpenses);
+    };
+    getExpenses();
+  }, [expensesCtx]);
 
-  const filteredExpenses = expenses.filter((expense, index, arr) => {
+  const filteredExpenses = expenses.filter((expense) => {
     if (
       expense.date.toLocaleString("en", { month: "long" }) === userSelection.month &&
       expense.date.toLocaleString("en", { year: "numeric" }) ===

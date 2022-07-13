@@ -1,4 +1,5 @@
 import { StyleSheet, View, Keyboard } from "react-native";
+import TypeButton from "../General/TypeButton";
 
 export default function TypeContainer({ onTypeChange, type, closeDropdown }) {
   return (
@@ -10,7 +11,6 @@ export default function TypeContainer({ onTypeChange, type, closeDropdown }) {
           Keyboard.dismiss();
           onTypeChange(type);
           closeDropdown();
-          setType(type);
         }}
       >
         Income
@@ -20,7 +20,6 @@ export default function TypeContainer({ onTypeChange, type, closeDropdown }) {
         isPressed={type === "EXPENSE" || type === "" ? true : false}
         setType={(type) => {
           Keyboard.dismiss();
-          setType(type);
           onTypeChange(type);
         }}
       >

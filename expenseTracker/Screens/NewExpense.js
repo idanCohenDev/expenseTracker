@@ -6,12 +6,11 @@ import {
   Keyboard,
   Dimensions,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Colors } from "../styles/Colors";
 import CategoryDropdown from "../Components/General/CategoryDropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import "react-native-get-random-values";
-import TypeButton from "../Components/General/TypeButton";
 import Button from "../Components/General/Button";
 import LinearGradientBackground from "../Components/General/LinearGradientBackground";
 import ShadowContainer from "../Components/General/ShadowContainer";
@@ -79,8 +78,8 @@ export default function NewExpense({ navigation }) {
           <TextInput
             maxLength={40}
             style={styles.noteInput}
-            value={note}
-            onChangeText={(text) => setNote(text)}
+            value={details.note}
+            onChangeText={(text) => setDetails({ ...details, note: text })}
             placeholder="Enter a description..."
             placeholderTextColor={Colors.Grey}
             onFocus={() => setCategoryOpen(false)}
@@ -90,18 +89,23 @@ export default function NewExpense({ navigation }) {
               <DateTimePicker
                 display="spinner"
                 maximumDate={new Date()}
-                value={date}
+                value={details.date}
                 style={styles.datePicker}
                 textColor="#fff"
                 onChange={(e, selectedDate) => {
                   Keyboard.dismiss();
-                  setDate(selectedDate);
+                  setDetails({ ...details, date: selectedDate });
                   setCategoryOpen(false);
                 }}
               />
             </LinearGradientBackground>
           </ShadowContainer>
-          <SaveButton details={details} navigation={navigation} />
+          <SaveButton
+            details={details}
+            navigation={navigation}
+            closeDropdown={closeCategoryDropdown}
+            setDetails={(details) => setDetails(details)}
+          />
         </View>
       </>
     </KeyboardDismissOverlay>

@@ -1,21 +1,20 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import React, { useContext } from "react";
 import { Colors } from "../../styles/Colors";
+import { useContext } from "react";
+import { ExpensesContext } from "../../Context/Context";
 import Icon from "./Icon";
 import Swipeable from "react-native-swipeable";
-import { ExpensesContext } from "../../Context/Context";
 import ShadowContainer from "./ShadowContainer";
 import IconLinearGradient from "./IconLinearGradient";
-
 const { width, height } = Dimensions.get("screen");
 
 export default function Expense({ data }) {
+  const expensesCtx = useContext(ExpensesContext);
   const formattedDate = data.date.toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric",
   });
-  const expensesCtx = useContext(ExpensesContext);
   const dynamicColor = {
     color: data.type === "EXPENSE" ? Colors.Red : Colors.Green,
   };
@@ -42,9 +41,7 @@ export default function Expense({ data }) {
           <Icon name="trash" size={32} color="#fff" />
         </View>
       }
-      onRightActionActivate={() => {
-        expensesCtx.deleteExpense(data.id);
-      }}
+      onRightActionActivate={() => expensesCtx.deleteExpense(data.id)}
     >
       <ShadowContainer>
         <View style={styles.container}>
