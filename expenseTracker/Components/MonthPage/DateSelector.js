@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import React, { useState } from "react";
-import { Months, Years } from "../../Context/Categories";
+import { Months, Years } from "../../Context/staticData";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import Icon from "../General/Icon";
-import CategoryDropdown from "../General/CategoryDropdown";
+import Icon from "../General/General/Icon";
+import CategoryDropdown from "../General/General/CategoryDropdown";
 const { width, height } = Dimensions.get("screen");
 export default function DateSelector({ setSelectedMonth, setSelectedYear, type }) {
   const [shown, setShown] = useState(false);

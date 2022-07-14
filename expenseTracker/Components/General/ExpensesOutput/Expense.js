@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Colors } from "../../styles/Colors";
+import { Colors } from "../../../styles/Colors";
 import { useContext } from "react";
-import { ExpensesContext } from "../../Context/Context";
-import Icon from "./Icon";
+import { ExpensesContext } from "../../../Context/context";
+import Icon from "../General/Icon";
 import Swipeable from "react-native-swipeable";
-import ShadowContainer from "./ShadowContainer";
-import IconLinearGradient from "./IconLinearGradient";
+import ShadowContainer from "../Layouts/ShadowContainer";
+import IconLinearGradient from "../Layouts/IconLinearGradient";
 const { width, height } = Dimensions.get("screen");
 
 export default function Expense({ data }) {

@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions, Text, View } from "react-native";
 import BalanceInformation from "./BalanceInformation";
-import LinearGradientBackground from "./LinearGradientBackground";
-import ShadowContainer from "./ShadowContainer";
+import LinearGradientBackground from "../Layouts/LinearGradientBackground";
+import ShadowContainer from "../Layouts/ShadowContainer";
 
 const { width, height } = Dimensions.get("screen");
 

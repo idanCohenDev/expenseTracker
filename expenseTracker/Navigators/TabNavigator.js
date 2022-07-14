@@ -1,14 +1,14 @@
-import { StyleSheet, TouchableOpacity, Dimensions, Pressable } from "react-native";
+import { StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpenses from "../Screens/AllExpenses";
 import MonthlyExpenses from "../Screens/MonthlyExpenses";
-import Icon from "../Components/General/Icon";
+import Icon from "../Components/General/General/Icon";
 import { Colors } from "../styles/Colors";
 import NewExpense from "../Screens/NewExpense";
 import { useContext, useState } from "react";
-import { ExpensesContext } from "../Context/Context";
-import LinearGradientBackground from "../Components/General/LinearGradientBackground";
-import ShadowContainer from "../Components/General/ShadowContainer";
+import { ExpensesContext } from "../Context/context";
+import LinearGradientBackground from "../Components/General/Layouts/LinearGradientBackground";
+import ShadowContainer from "../Components/General/Layouts/ShadowContainer";
 const Tab = createBottomTabNavigator();
 
 const { width, height } = Dimensions.get("window");

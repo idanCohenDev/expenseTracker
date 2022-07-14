@@ -1,21 +1,15 @@
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  Keyboard,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, View, Keyboard, Dimensions } from "react-native";
+import Input from "../Components/General/General/Input";
 import React, { useState } from "react";
 import { Colors } from "../styles/Colors";
-import CategoryDropdown from "../Components/General/CategoryDropdown";
+import CategoryDropdown from "../Components/General/General/CategoryDropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import "react-native-get-random-values";
-import Button from "../Components/General/Button";
-import LinearGradientBackground from "../Components/General/LinearGradientBackground";
-import ShadowContainer from "../Components/General/ShadowContainer";
+import Button from "../Components/General/General/Button";
+import LinearGradientBackground from "../Components/General/Layouts/LinearGradientBackground";
+import ShadowContainer from "../Components/General/Layouts/ShadowContainer";
 import KeyboardDismissOverlay from "../Components/NewExpense/KeyboardDismissOverlay";
-import { Categories } from "../Context/Categories";
+import { Categories } from "../Context/staticData";
 import SaveButton from "../Components/NewExpense/SaveButton";
 import AmountInput from "../Components/NewExpense/AmountInput";
 import TypeContainer from "../Components/NewExpense/TypeContainer";
@@ -69,20 +63,18 @@ export default function NewExpense({ navigation }) {
                 icon={true}
                 categorySelectHandler={(category) => {
                   setCategoryOpen(false);
-                  setCategory(category);
+                  setDetails();
                 }}
               />
             )}
           </View>
-
-          <TextInput
-            maxLength={40}
-            style={styles.noteInput}
-            value={details.note}
-            onChangeText={(text) => setDetails({ ...details, note: text })}
-            placeholder="Enter a description..."
-            placeholderTextColor={Colors.Grey}
-            onFocus={() => setCategoryOpen(false)}
+          <Input
+            inputConfig={{
+              value: details.note,
+              onChangeText: (text) => setDetails({ ...details, note: text }),
+              placeholder: "Enter a description...",
+              onFocus: () => setCategoryOpen(false),
+            }}
           />
           <ShadowContainer>
             <LinearGradientBackground style={styles.datePickerContainer}>
@@ -135,15 +127,6 @@ const styles = StyleSheet.create({
   categoryContainer: {
     borderColor: "#333",
     borderWidth: 2,
-  },
-  noteInput: {
-    marginTop: 16,
-    backgroundColor: "#fff",
-    height: 56,
-    width: width * 0.9,
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    fontSize: 16,
   },
   datePickerContainer: {
     borderRadius: 16,

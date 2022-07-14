@@ -18,55 +18,16 @@ const expenseSchema = new mongoose.Schema({
 
 const Expense = mongoose.model("Expense", expenseSchema);
 
-// const expenses = [
-//   {
-//     amount: "100",
-//     category: {
-//       name: "Food",
-//       color: "#FFA500",
-//       iconName: "fast-food",
-//     },
-//     date: new Date(),
-//     description: "Lunch at McDonalds",
-//     type: "EXPENSE",
-//     id: "1",
-//   },
-//   {
-//     amount: "50",
-//     category: {
-//       name: "Food",
-//       color: "#FFA500",
-//       iconName: "fast-food",
-//     },
-//     date: new Date(),
-//     description: "Lunch at McDonalds",
-//     type: "EXPENSE",
-//     id: "2",
-//   },
-//   {
-//     amount: "50",
-//     category: {
-//       name: "Food",
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  expenses: [expenseSchema],
+  monthlyGoal: Number,
+});
 
-//       color: "#FFA500",
-//       iconName: "fast-food",
-//     },
-//     date: new Date(),
-//     description: "Lunch at McDonalds",
-//     type: "EXPENSE",
-//     id: "3",
-//   },
-// ];
-
-// app.get("/", (req, res) => {
-//   Expense.insertMany(expenses, (err, docs) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log(docs);
-//     }
-//   });
-// });
+const User = mongoose.model("User", userSchema);
 
 app.get("/expenses", (req, res) => {
   Expense.find({}, (err, expenses) => {
@@ -95,19 +56,7 @@ app.post("/add-expense", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(expense);
-    }
-  });
-});
-
-app.delete("/delete-expense", (req, res) => {
-  console.log(req.body);
-  const id = "62ceead277b565002a2972bd";
-  Expense.findByIdAndDelete(id, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(`Deleted expense with id: ${id}`);
+      res.send(expense);
     }
   });
 });

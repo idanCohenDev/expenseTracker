@@ -1,10 +1,10 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useContext, useState } from "react";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Categories } from "../Context/Categories";
-import Icon from "../Components/General/Icon";
-import { ExpensesContext } from "../Context/Context";
-import IconLinearGradient from "../Components/General/IconLinearGradient";
+import { Categories } from "../Context/staticData";
+import Icon from "../Components/General/General/Icon";
+import { ExpensesContext } from "../Context/context";
+import IconLinearGradient from "../Components/General/Layouts/IconLinearGradient";
 
 export default function CustomDrawerContent(props) {
   const expenseCtx = useContext(ExpensesContext);

@@ -1,8 +1,8 @@
-import Button from "../General/Button";
+import Button from "../General/General/Button";
 import { Alert, StyleSheet } from "react-native";
 import { v4 as uuidv4 } from "uuid";
 import { useContext } from "react";
-import { ExpensesContext } from "../../Context/Context";
+import { ExpensesContext } from "../../Context/context";
 
 export default function SaveButton({
   navigation,

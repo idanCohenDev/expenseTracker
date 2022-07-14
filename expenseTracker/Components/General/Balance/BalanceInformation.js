@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Colors } from "../../styles/Colors";
-import Icon from "./Icon";
+import { Colors } from "../../../styles/Colors";
+import Icon from "../General/Icon";
 
 export default function BalanceInformation({ type, data }) {
   return (

@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Colors } from "../../styles/Colors";
+import { Colors } from "../../../styles/Colors";
 
 export default function ShadowContainer({ shadowStyle, children }) {
   return <View style={[styles.container, shadowStyle]}>{children}</View>;

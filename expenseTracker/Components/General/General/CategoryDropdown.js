@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import React from "react";
 import Icon from "./Icon";
-import { Colors } from "../../styles/Colors";
-import IconLinearGradient from "./IconLinearGradient";
+import { Colors } from "../../../styles/Colors";
+import IconLinearGradient from "../Layouts/IconLinearGradient";
 
 const { width, height } = Dimensions.get("screen");
 

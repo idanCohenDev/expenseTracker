@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ExpensesContext = createContext({
   category: "",
@@ -12,25 +12,28 @@ const ExpensesContextProvider = ({ children }) => {
   const [category, setCategory] = useState("");
   const [expenses, setExpenses] = useState([]);
 
-  const getAllExpenses = async () => {
-    try {
-      const response = await fetch("http://192.168.1.144:4000/expenses");
-      const data = await response.json();
-      const parsedData = data.map((expense) => {
-        return {
-          ...expense,
-          date: new Date(expense.date),
-          amount: parseFloat(expense.amount),
-        };
-      });
-      setExpenses(parsedData);
-      return parsedData;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    const getAllExpensesServer = async () => {
+      try {
+        const response = await fetch("http://192.168.1.144:4000/expenses");
+        const data = await response.json();
+        const parsedData = data.map((expense) => {
+          return {
+            ...expense,
+            date: new Date(expense.date),
+            amount: parseFloat(expense.amount),
+          };
+        });
+        setExpenses(parsedData);
+        return parsedData;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllExpensesServer();
+  }, []);
 
-  const deleteExpense = async (id) => {
+  const deleteExpenseServer = async (id) => {
     try {
       const response = await fetch(`http://192.168.1.144:4000/expenses/${id}`, {
         method: "DELETE",
@@ -50,7 +53,7 @@ const ExpensesContextProvider = ({ children }) => {
     }
   };
 
-  const addExpense = async (expense) => {
+  const addExpenseServer = async (expense) => {
     try {
       const response = await fetch("http://192.168.1.144:4000/add-expense", {
         method: "POST",
@@ -60,17 +63,20 @@ const ExpensesContextProvider = ({ children }) => {
         body: JSON.stringify(expense),
       });
       const data = await response.json();
-      const parsedData = data.map((expense) => {
-        return {
-          ...expense,
-          date: new Date(expense.date),
-          amount: parseFloat(expense.amount),
-        };
-      });
       return data;
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const addExpense = (expense) => {
+    addExpenseServer(expense);
+    setExpenses([...expenses, expense]);
+  };
+
+  const deleteExpense = (id) => {
+    deleteExpenseServer(id);
+    setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
   const chooseCategory = (category) => {
@@ -78,7 +84,7 @@ const ExpensesContextProvider = ({ children }) => {
   };
 
   const value = {
-    getAllExpenses: getAllExpenses,
+    expenses: expenses,
     deleteExpense: deleteExpense,
     addExpense: addExpense,
     category: category,

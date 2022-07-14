@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import ExpensesOutput from "../Components/General/ExpensesOutput";
+import ExpensesOutput from "../Components/General/ExpensesOutput/ExpensesOutput";
 import { useContext } from "react";
-import { ExpensesContext } from "../Context/Context";
+import { ExpensesContext } from "../Context/context";
 
 export default function MonthlyExpenses({ route }) {
   const currentMonth = new Date().toLocaleString("en", { month: "long" });
@@ -13,14 +13,10 @@ export default function MonthlyExpenses({ route }) {
   const expensesCtx = useContext(ExpensesContext);
   const [expenses, setExpenses] = useState([]);
   useEffect(() => {
-    const getExpenses = async () => {
-      const allExpenses = await expensesCtx.getAllExpenses();
-      setExpenses(allExpenses);
-    };
-    getExpenses();
-  }, [expensesCtx]);
+    setExpenses(expensesCtx.expenses);
+  }, [expensesCtx.expenses]);
 
-  const filteredExpenses = expenses.filter((expense) => {
+  const shownExpenses = expenses.filter((expense) => {
     if (
       expense.date.toLocaleString("en", { month: "long" }) === userSelection.month &&
       expense.date.toLocaleString("en", { year: "numeric" }) ===
@@ -38,7 +34,7 @@ export default function MonthlyExpenses({ route }) {
 
   return (
     <ExpensesOutput
-      data={filteredExpenses}
+      data={shownExpenses}
       page="month"
       route={route}
       setSelectedMonth={(month) => setUserSelection({ ...userSelection, month })}

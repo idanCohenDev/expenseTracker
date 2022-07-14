@@ -1,5 +1,5 @@
 import { StyleSheet, View, Keyboard } from "react-native";
-import TypeButton from "../General/TypeButton";
+import TypeButton from "../General/General/TypeButton";
 
 export default function TypeContainer({ onTypeChange, type, closeDropdown }) {
   return (

@@ -1,15 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import ExpensesContextProvider from "./Context/Context";
+import ExpensesContextProvider from "./Context/context";
 import DrawerNavigator from "./Navigators/DrawerNavigator";
+import SignInStackNavigator from "./Navigators/SignInStackNavigator";
+import { useState } from "react";
 
 export default function App() {
+  const [signedIn, setSignedIn] = useState(false);
   return (
     <>
       <StatusBar style="dark" />
       <ExpensesContextProvider>
         <NavigationContainer>
-          <DrawerNavigator />
+          {signedIn ? <DrawerNavigator /> : <SignInStackNavigator />}
         </NavigationContainer>
       </ExpensesContextProvider>
     </>

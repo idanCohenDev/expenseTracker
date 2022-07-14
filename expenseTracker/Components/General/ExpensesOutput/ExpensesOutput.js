@@ -1,8 +1,8 @@
-import { FlatList, View, StyleSheet, Dimensions } from "react-native";
+import { FlatList, View, StyleSheet, Dimensions, Text } from "react-native";
 import Expense from "./Expense";
-import TotalBalance from "./TotalBalance";
-import DateSelector from "../MonthPage/DateSelector";
-import TypeButton from "./TypeButton";
+import TotalBalance from "../Balance/TotalBalance";
+import DateSelector from "../../MonthPage/DateSelector";
+import TypeButton from "../General/TypeButton";
 import { useState } from "react";
 const { width, height } = Dimensions.get("screen");
 
@@ -69,6 +69,7 @@ export default function ExpensesOutput({
           </View>
         </View>
       </View>
+
       <FlatList
         style={{ zIndex: -1 }}
         contentContainerStyle={{ marginLeft: width * 0.05 }}

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
 import React from "react";
-import LineafGradientBackground from "./LinearGradientBackground";
-import { Colors } from "../../styles/Colors";
+import LineafGradientBackground from "../Layouts/LinearGradientBackground";
+import { Colors } from "../../../styles/Colors";
 
 export default function TypeButton({
   isPressed,
