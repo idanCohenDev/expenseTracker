@@ -35,6 +35,7 @@
     "react-native-swipeable": "^0.6.0",
     "react-native-swipeable-item": "^2.0.2",
     "react-native-text-gradient": "^0.1.7",
+    "react-native-vega-scroll-list": "^1.0.0",
     "react-native-web": "0.17.7",
     "uuid": "^8.3.2"
   },

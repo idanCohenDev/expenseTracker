@@ -29,6 +29,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+app.post("/user", (req, res) => {
+  const user = new User(req.body);
+  User.create(user, (err, user) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(user);
+    }
+  });
+});
+
 app.get("/expenses", (req, res) => {
   Expense.find({}, (err, expenses) => {
     if (err) {

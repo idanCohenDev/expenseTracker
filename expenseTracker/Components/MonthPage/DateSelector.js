@@ -21,6 +21,7 @@ export default function DateSelector({ setSelectedMonth, setSelectedYear, type }
 
       {shown && (
         <CategoryDropdown
+          closeDropdown={() => setShown(false)}
           customStyle={type === "year" && styles.dropdownYear}
           data={type === "month" ? Months : Years}
           icon={false}

@@ -18,8 +18,9 @@ export default function CategoryDropdown({
   data,
   icon,
   customStyle,
+  closeDropdown,
 }) {
-  const categoriesElements = data.map((category, i, arr) => {
+  const categoriesElements = data.map((category) => {
     return (
       <Pressable
         key={category.name}
@@ -29,6 +30,7 @@ export default function CategoryDropdown({
           });
           category.selected = !category.selected;
           categorySelectHandler(icon ? category : category.name);
+          closeDropdown();
         }}
         style={{
           backgroundColor: category.selected ? "rgba(2,150,255, 0.3)" : "#fff",

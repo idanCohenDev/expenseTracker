@@ -53,7 +53,7 @@ export default function NewExpense({ navigation }) {
                   setCategoryOpen((prevCategoryOpen) => !prevCategoryOpen);
                 }}
               >
-                Category
+                {details.category ? details.category.name : "Category"}
               </Button>
             )}
             {categoryOpen && (
@@ -63,8 +63,9 @@ export default function NewExpense({ navigation }) {
                 icon={true}
                 categorySelectHandler={(category) => {
                   setCategoryOpen(false);
-                  setDetails();
+                  setDetails({ ...details, category: category });
                 }}
+                closeDropdown={closeCategoryDropdown}
               />
             )}
           </View>

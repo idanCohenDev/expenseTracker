@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet, Dimensions, Text } from "react-native";
+import { FlatList, View, StyleSheet, Dimensions } from "react-native";
 import Expense from "./Expense";
 import TotalBalance from "../Balance/TotalBalance";
 import DateSelector from "../../MonthPage/DateSelector";
