@@ -7,15 +7,32 @@ import CategoryDropdown from "../General/General/CategoryDropdown";
 const { width, height } = Dimensions.get("screen");
 export default function DateSelector({ setSelectedMonth, setSelectedYear, type }) {
   const [shown, setShown] = useState(false);
+  const [data, setData] = useState({
+    year: "",
+    month: "",
+  });
+  const labelHandler = () => {
+    if (type === "month") {
+      if (data.month) {
+        return data.month;
+      } else {
+        return "Select Month";
+      }
+    } else {
+      if (data.year) {
+        return data.year;
+      } else {
+        return "Select Year";
+      }
+    }
+  };
   return (
     <View>
       <Pressable
         style={styles.container}
         onPress={() => setShown((prevShown) => !prevShown)}
       >
-        <Text style={styles.selectButtonText}>
-          {type === "month" ? "Select Month" : "Select Year"}
-        </Text>
+        <Text style={styles.selectButtonText}>{labelHandler()}</Text>
         <Icon name={shown ? "caret-up" : "caret-down"} size={16} color="#000" />
       </Pressable>
 
@@ -25,9 +42,15 @@ export default function DateSelector({ setSelectedMonth, setSelectedYear, type }
           customStyle={type === "year" && styles.dropdownYear}
           data={type === "month" ? Months : Years}
           icon={false}
-          categorySelectHandler={(data) =>
-            type === "month" ? setSelectedMonth(data) : setSelectedYear(data)
-          }
+          categorySelectHandler={(date) => {
+            if (type === "month") {
+              setData({ ...data, month: date });
+              setSelectedMonth(date);
+            } else {
+              setData({ ...data, year: date });
+              setSelectedYear(date);
+            }
+          }}
         />
       )}
     </View>

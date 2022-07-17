@@ -4,6 +4,7 @@ import TotalBalance from "../Balance/TotalBalance";
 import DateSelector from "../../MonthPage/DateSelector";
 import TypeButton from "../General/TypeButton";
 import { useState } from "react";
+import ShadowContainer from "../Layouts/ShadowContainer";
 const { width, height } = Dimensions.get("screen");
 
 export default function ExpensesOutput({
@@ -38,40 +39,40 @@ export default function ExpensesOutput({
               />
             </View>
           )}
-
-          <View style={[styles.typeContainer, { zIndex: -1 }]}>
-            <TypeButton
-              containerStyle={styles.typeButtonContainer}
-              textStyle={styles.typeButtonText}
-              isPressed={type === "" ? true : false}
-              setType={(type) => setType("")}
-            >
-              All
-            </TypeButton>
-            <TypeButton
-              containerStyle={styles.typeButtonContainer}
-              textStyle={styles.typeButtonText}
-              type="EXPENSE"
-              isPressed={type === "EXPENSE" ? true : false}
-              setType={(type) => setType(type)}
-            >
-              Expense
-            </TypeButton>
-            <TypeButton
-              containerStyle={styles.typeButtonContainer}
-              textStyle={styles.typeButtonText}
-              type="INCOME"
-              isPressed={type === "INCOME" ? true : false}
-              setType={(type) => setType(type)}
-            >
-              Income
-            </TypeButton>
-          </View>
+          <ShadowContainer>
+            <View style={[styles.typeContainer, { zIndex: -1 }]}>
+              <TypeButton
+                containerStyle={styles.typeButtonContainer}
+                textStyle={styles.typeButtonText}
+                isPressed={type === "" ? true : false}
+                setType={(type) => setType("")}
+              >
+                All
+              </TypeButton>
+              <TypeButton
+                containerStyle={styles.typeButtonContainer}
+                textStyle={styles.typeButtonText}
+                type="EXPENSE"
+                isPressed={type === "EXPENSE" ? true : false}
+                setType={(type) => setType(type)}
+              >
+                Expense
+              </TypeButton>
+              <TypeButton
+                containerStyle={styles.typeButtonContainer}
+                textStyle={styles.typeButtonText}
+                type="INCOME"
+                isPressed={type === "INCOME" ? true : false}
+                setType={(type) => setType(type)}
+              >
+                Income
+              </TypeButton>
+            </View>
+          </ShadowContainer>
         </View>
       </View>
-
       <FlatList
-        style={{ zIndex: -1 }}
+        style={{ zIndex: -1, paddingTop: 16 }}
         contentContainerStyle={{ marginLeft: width * 0.05 }}
         data={finalData}
         renderItem={({ item }) => {
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     width: width * 0.9,
-    paddingVertical: 16,
+    paddingTop: 16,
   },
   title: {
     fontSize: 16,

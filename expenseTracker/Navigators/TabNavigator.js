@@ -19,8 +19,9 @@ export default function TabNavigator() {
   const currentYear = new Date().toLocaleString("en", { year: "numeric" });
   const [userSelection, setUserSelection] = useState({
     month: currentMonth,
-    year: currentYear,
+    year: currentMonth,
   });
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -67,7 +68,7 @@ export default function TabNavigator() {
         name="MonthlyExpenes"
         component={MonthlyExpenses}
         options={{
-          tabBarLabel: `${userSelection.month} ${userSelection.year}`,
+          tabBarLabel: `Monthly`,
           tabBarIcon: ({ focused }) => (
             <Icon
               name="calendar"

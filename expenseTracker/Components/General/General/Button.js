@@ -13,29 +13,37 @@ export default function Button({
   linearGradientBackground,
 }) {
   const button = (
-    <Pressable onPress={onPress}>
-      <Text
-        style={[
-          styles.text,
-          textStyle,
-          { color: linearGradientBackground ? "#fff" : "#000" },
-        ]}
-      >
-        {children}
-      </Text>
-    </Pressable>
+    <Text
+      style={[
+        styles.text,
+        textStyle,
+        { color: linearGradientBackground ? "#fff" : "#000" },
+      ]}
+    >
+      {children}
+    </Text>
   );
   return linearGradientBackground ? (
     <ShadowContainer>
-      <LinearGradientBackground style={[styles.container, containerStyle]}>
-        {button}
-      </LinearGradientBackground>
+      <Pressable
+        style={({ pressed }) => pressed && styles.pressed}
+        onPress={onPress}
+      >
+        <LinearGradientBackground style={[styles.container, containerStyle]}>
+          {button}
+        </LinearGradientBackground>
+      </Pressable>
     </ShadowContainer>
   ) : (
     <ShadowContainer>
-      <View style={[styles.container, styles.whiteContainer, containerStyle]}>
-        {button}
-      </View>
+      <Pressable
+        style={({ pressed }) => pressed && styles.pressed}
+        onPress={onPress}
+      >
+        <View style={[styles.container, styles.whiteContainer, containerStyle]}>
+          {button}
+        </View>
+      </Pressable>
     </ShadowContainer>
   );
 }

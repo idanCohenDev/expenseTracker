@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const port = process.env.PORT || 4000;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/expensesDB");
@@ -17,28 +19,6 @@ const expenseSchema = new mongoose.Schema({
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);
-
-const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
-  expenses: [expenseSchema],
-  monthlyGoal: Number,
-});
-
-const User = mongoose.model("User", userSchema);
-
-app.post("/user", (req, res) => {
-  const user = new User(req.body);
-  User.create(user, (err, user) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(user);
-    }
-  });
-});
 
 app.get("/expenses", (req, res) => {
   Expense.find({}, (err, expenses) => {
@@ -72,6 +52,6 @@ app.post("/add-expense", (req, res) => {
   });
 });
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("Server is running on port 4000");
 });

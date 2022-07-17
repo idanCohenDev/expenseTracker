@@ -34,16 +34,16 @@ export default function Expense({ data }) {
   };
 
   return (
-    <Swipeable
-      rightActionActivationDistance={250}
-      rightContent={
-        <View style={styles.deleteContainer}>
-          <Icon name="trash" size={32} color="#fff" />
-        </View>
-      }
-      onRightActionActivate={() => expensesCtx.deleteExpense(data.id)}
-    >
-      <ShadowContainer>
+    <ShadowContainer>
+      <Swipeable
+        rightActionActivationDistance={250}
+        rightContent={
+          <View style={styles.deleteContainer}>
+            <Icon name="trash" size={32} color="#fff" />
+          </View>
+        }
+        onRightActionActivate={() => expensesCtx.deleteExpense(data.id)}
+      >
         <View style={styles.container}>
           <View style={styles.infoContainer}>
             <Text style={[styles.amount, dynamicColor]}>
@@ -60,8 +60,8 @@ export default function Expense({ data }) {
             <Text style={styles.description}>{data.description}</Text>
           </View>
         </View>
-      </ShadowContainer>
-    </Swipeable>
+      </Swipeable>
+    </ShadowContainer>
   );
 }
 
